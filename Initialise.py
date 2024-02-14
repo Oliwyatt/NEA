@@ -1,7 +1,7 @@
 import sqlite3
 
 def SetUp():
-    with sqlite3.connect("CalendarDB") as db:
+    with sqlite3.connect("Organiser.db") as db:
         cursor = db.cursor()
         sql = """CREATE TABLE IF NOT EXISTS User(
                  UserID integer,
@@ -15,7 +15,7 @@ def SetUp():
         cursor.execute(sql)
 
 def view():
-    with sqlite3.connect("Temp database") as db:
+    with sqlite3.connect("Organiser.db") as db:
         cursor = db.cursor()
         sql = """SELECT * FROM USER;"""
         cursor.execute(sql)
@@ -31,6 +31,7 @@ class user():
         self.__Email = ""
 
     def signup(self):
+        pass
         
         
 #Sign up

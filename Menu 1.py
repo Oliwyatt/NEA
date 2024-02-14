@@ -1,8 +1,6 @@
 import time
 import calendar
-#import Initialise
-
-#table = Initialise
+import Data
 
 def ValueException():
     try:
@@ -47,5 +45,5 @@ def relaxation():
 
 
 if __name__ == "__main__":
-    #table.SetUp()
+    Data.Initialise
     main()

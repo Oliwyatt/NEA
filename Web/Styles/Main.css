@@ -1,0 +1,12 @@
+:root{
+    --Main-BG-Colour: #282828;
+    --Main-Text-Colour: #fff;
+    --Primary-Colour: #f2f2f2;
+    --Secondary-Colour: #f0f0f0;
+    --Primary-Gradient: linear-gradient(90deg, var(--Primary-Colour), var(--Secondary-Colour));
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+}

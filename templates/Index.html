@@ -1,0 +1,23 @@
+{% extends "Base.html" %}
+
+{% block head %}
+<title>Life Organiser</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Index.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="Heading-Container">
+    <h1>Welcome to your life organiser please login or sign up!</h1>
+</div>
+<div class="Login-Container">
+    <form action="/" method=""
+    <h2>Email</h2>
+    <input type="email" name="Email" id="Email" placeholder="Email@Email.com">
+    <h2>Password</h2>
+    <input type="password" name="Password" id="Password" placeholder="Password">
+    <a onclick="" class="LoginBtn">Submit</a>
+</div>
+<!--<div class="Sign-Up">
+    <h3>Sign up <a href="">here!</a></h3>
+</div>-->
+{% endblock %}

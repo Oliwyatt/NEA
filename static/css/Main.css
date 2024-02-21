@@ -1,0 +1,23 @@
+:root{
+    --Main-BG-Colour: #0e0a0a;
+    --Main-Text-Colour: #c0afaf;
+    --Primary-Colour: #aa2222;
+    --Secondary-Colour: #1c2f64;
+    --Primary-Gradient: linear-gradient(90deg, var(--Primary-Colour), var(--Secondary-Colour));
+    --Rev-Primary-Gradient: linear-gradient(90deg, var(--Secondary-Colour), var(--Primary-Colour))
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+.Main-Container{
+    display: flex;
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--Main-BG-Colour);
+    align-items: center;
+    justify-content: center;
+}

@@ -56,11 +56,18 @@ def view():
         for each in result:
             print(each)
 
-class user():
+class user(**kwargs):
     def __init__(self):
-        self.FName = ""
-        self.LName = ""
-        self._Email = ""
+        try:
+            if kwargs["Login"] == True: # login page info
+                self.FName = ""
+                self.LName = ""
+                self._Email = kwargs["Email"]
+                self._Password = kwargs["Password"]
+            else: # sign up page info
+                self.FName = kwargs["FName"]
+                self.LName = kwargs[]
+
 
     def signup(self):
         # Need FLASK and set up 'website'

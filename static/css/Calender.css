@@ -1,6 +1,48 @@
-@import url("/Web/Styles/Main.css");
+@import "{{ url_for('static', filename=('css/Base.css')) }}";
 
 body{
     background-color: var(--Main-BG-Colour);
     color: var(--Main-Text-Colour);
+}
+
+.Main-Container{
+    display: flex;
+    flex-direction: row;
+}
+
+.Sidebar{
+    height: 100%;
+    width: 20%;
+}
+
+.Calender{
+    height: 100%;
+    width: 80%;
+    background-color: aliceblue;
+}
+
+.Month{
+    height: 40%;
+    width: 100%;
+    background-color: aquamarine;
+    padding: 20px;
+}
+
+.Date{
+    position: relative;
+    height: 40%;
+    width: 13%;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+}
+
+.Date h1{
+    position: absolute;
+    right: 0%;
+}
+
+.Date p{
+    padding-top: 40px;
 }

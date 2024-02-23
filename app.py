@@ -10,18 +10,38 @@ db = SQLAlchemy(app)
 
 @app.route("/", methods=["POST", "GET"])
 def index():
+    try:
+        if request.method == "POST":
+            Current_User = Data.user()
+            if Current_User.login(Email=request.form["Email"], Password=request.form["Password"]):
+                return redirect("/Home")
+            else:
+                return redirect("/")
+        else:
+            return render_template("Index.html")
+    except:
+        print("There was an error with login")
+        return redirect("/")
+
+
+@app.route("/SignUp", methods=["POST", "GET"])
+def SignUp():
     if request.method == "POST":
         Current_User = Data.user()
         try:
-            if Current_User.login(Email=request.form["Email"], Password=request.form["Password"]):
-                return render_template("Base.html")
-            else:
+            if Current_User.signup(FName=request.form["FName"], LName=request.form["LName"], Email=request.form["Email"], Password=request.form["Password"]):
                 return redirect("/")
+            else:
+                return redirect("/SignUp")
         except:
-            print("There was a problem")
-            return redirect("/")
+            return redirect("/SignUp")
     else:
-        return render_template("Index.html")
+        return render_template("SignUp.html")
+
+
+@app.route("/Home")
+def Home():
+    return render_template("Home.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

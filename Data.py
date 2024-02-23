@@ -11,7 +11,7 @@ def Initialise():
                  LastName varchar(20),
                  Email text UNIQUE,
                  Password text,
-                 DeleteCal char(1),
+                 DeleteCal char(1) NOT NULL,
                  Primary key(UserID));
               """
         cursor.execute(sql)
@@ -19,11 +19,11 @@ def Initialise():
         sql = """CREATE TABLE IF NOT EXISTS Event(
                  EventID integer,
                  UserID integer,
-                 EventName text,
+                 EventName text NOT NULL,
                  Start DateTime,
                  End DateTime,
-                 Type char(1),
-                 Priority integer,
+                 Type char(1) NOT NULL,
+                 Priority integer NOT NULL,
                  Primary key(EventID),
                  Foreign key(UserID) References User);
                """
@@ -31,7 +31,7 @@ def Initialise():
         # Creating Streaming table
         sql = """CREATE TABLE IF NOT EXISTS Streaming(
                  ShowID integer,
-                 ShowName text,
+                 ShowName text NOT NULL,
                  Rating integer,
                  Primary key(ShowID));
               """
@@ -146,6 +146,21 @@ class user():
                 return False
 
 # Sign up and login
+            
+    def CreateAccount(self, FName, LName, Email, Password):
+        Values = (FName, LName, Email, Password, "N")
+        try:
+            with sqlite3.connect("Organiser.db") as db:
+                cursor = db.cursor()
+                sql = """INSERT INTO User (FirstName, LastName, Email, Password, DeleteCal)
+                         VALUES (?, ?, ?, ?, ?);
+                    """
+                cursor.execute(sql, Values)
+                db.commit()
+                return True
+        except sqlite3.Error as error:
+            print("Failed to insert variables into table", error)
+            return False
         
     def signup(self, **kwargs): # Passes through many values so would not crash from extra ones
         self.SetFName(kwargs["FName"])
@@ -153,10 +168,12 @@ class user():
         self.Set_Email(kwargs["Email"])
         self.Set_Password(kwargs["Password"])
         try: # Attempt to create account using values
-            self.CreateAccount(self.GetFName(), self.GetLName(), self.Get_Email, self.Get_Password)
+            if self.CreateAccount(self.GetFName(), self.GetLName(), self.Get_Email(), self.Get_Password()):
+                return True
         except:
             print("Error there is something wrong with those values for the database.")
             return False
+        
         
     def login(self, **kwargs):
         self.Set_Email(kwargs["Email"])

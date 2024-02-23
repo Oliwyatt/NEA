@@ -8,7 +8,7 @@ body{
 .Heading-Container{
     display: flex;
     position: absolute;
-    height: 20%;
+    height: 15%;
     width: 60%;
     background: var(--Rev-Primary-Gradient);
     align-items: center;
@@ -18,11 +18,11 @@ body{
     left: 20%;
 }
 
-.LoginBtn{
+.SignUpBtn{
     font-size: 22px;
     font-weight: 600;
     color: var(--Main-Text-Colour);
-    height: 15%!important;
+    height: 13%!important;
     width: 80%!important;
     text-align: center;
     background: var(--Secondary-Colour);
@@ -30,14 +30,7 @@ body{
     cursor: pointer;
 }
 
-.LoginBtn:hover{
+.SignUpBtn:hover{
     transition: 0.2s;
     background: var(--Primary-Gradient);
-}
-
-.SignUp{
-    width: 80%;
-    height: fit-content!important;
-    text-align: center;
-    cursor: pointer;
 }

@@ -1,12 +1,14 @@
 import sqlite3
 
-Email = ("S2208@st-martins.essex.sch.uk", )
-
-with sqlite3.connect("Organiser.db") as db:
+try:
+      Values = (, LName, Email, Password)
+      with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
-            sql = """SELECT UserID FROM User
-                     WHERE Email = ?;
+            sql = """INSERT INTO User (FirstName, LastName, Email, Password, DeleteCal)
+                     VALUES (?, ?, ?, ?, 'N');
                   """
-            cursor.execute(sql, Email)
-            result, = cursor.fetchone()
-            print(result)
+            cursor.execute(sql, Values)
+            db.commit()
+
+except sqlite3.Error as error:
+      print(error)

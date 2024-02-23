@@ -25,12 +25,19 @@ body{
     background: var(--Primary-Gradient);
     flex-direction: column;
     padding: 20px;
-    align-items: center;
-    justify-content: center;
     border-radius: 15px;
 }
 
-.Login-Container input{
+.Login-Container form{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.Login-Container form input{
     width: 80%;
     height: 12%;
     border-radius: 20px;
@@ -40,10 +47,12 @@ body{
 }
 
 .LoginBtn{
-    text-decoration: none;
     font-size: 22px;
-    font-weight: 400;
-    padding: 25px 200px;
+    font-weight: 600;
+    color: var(--Main-Text-Colour);
+    height: 15%!important;
+    width: 80%!important;
+    text-align: center;
     background: var(--Secondary-Colour);
     border-radius: 20px;
     cursor: pointer;

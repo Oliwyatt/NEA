@@ -1,0 +1,8 @@
+Exception handling for user inputting nothing in 
+
+
+Idea:
+
+Enter Email: Search For Email If Not Found Send To Sign UP, If Found Send To Login
+If Email Found Show Password Box
+If Not Found Make Them Enter First And Last Name Then Password

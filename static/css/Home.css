@@ -1,2 +1,48 @@
 @import "{{ url_for('static', filename=('css/Base.css')) }}";
 
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--Main-Text-Colour);
+}
+
+.Heading-Container{
+    display: flex;
+    position: absolute;
+    height: 25%;
+    width: 80%;
+    background: var(--Secondary-BG-Colour);
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    top: 4%;
+    left: 10%;
+}
+
+.Relaxtion-Container{
+    display: flex;
+    position: absolute;
+    height: 70%;
+    width: 50%;
+    background: var(--Secondary-Colour);
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    top: 30%;
+}
+
+.Calendar-Container{
+    display: flex;
+    position: absolute;
+    height: 70%;
+    width: 50%;
+    background: var(--Primary-Colour);
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    top: 30%;
+    left: 50%;
+}
+
+* a{
+    cursor: pointer;
+}

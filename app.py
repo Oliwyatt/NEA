@@ -2,6 +2,9 @@ from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 import Data
 
+global Current_User
+Current_User = Data.user()
+
 app = Flask(__name__)
 Data.Initialise()
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Organiser.db"
@@ -12,7 +15,6 @@ db = SQLAlchemy(app)
 def index():
     try:
         if request.method == "POST":
-            Current_User = Data.user()
             if Current_User.login(Email=request.form["Email"], Password=request.form["Password"]):
                 return redirect("/Home")
             else:
@@ -39,9 +41,10 @@ def SignUp():
         return render_template("SignUp.html")
 
 
-@app.route("/Home")
+@app.route("/Home", methods=["POST", "GET"])
 def Home():
-    return render_template("Home.html")
+    name = Current_User.GetFName()
+    return render_template("Home.html", Name=name)
 
 if __name__ == "__main__":
     app.run(debug=True)

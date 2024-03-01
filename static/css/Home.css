@@ -24,8 +24,6 @@ body{
     height: 70%;
     width: 50%;
     background: var(--Secondary-Colour);
-    align-items: center;
-    justify-content: center;
     border-radius: 20px;
     top: 30%;
 }
@@ -36,14 +34,29 @@ body{
     height: 70%;
     width: 50%;
     background: var(--Primary-Colour);
-    align-items: center;
-    justify-content: center;
     border-radius: 20px;
     top: 30%;
     left: 50%;
 }
 
+.Relaxation-Table{
+    position: relative;
+    height: 75%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.Calendar-Table{
+    position: relative;
+    height: 75%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
 .RelaxationBtn{
+    position: relative;
     font-size: 30px;
     font-weight: 600;
     color: var(--Main-Text-Colour);
@@ -52,11 +65,13 @@ body{
     text-align: center;
     background: var(--Secondary-Colour);
     border-radius: 20px;
-    left: 2.5%;
+    left: 27.5%;
+    padding-top: 15px;
     cursor: pointer;
 }
 
 .CalendarBtn{
+    position: relative;
     font-size: 30px;
     font-weight: 600;
     color: var(--Main-Text-Colour);
@@ -65,7 +80,8 @@ body{
     text-align: center;
     background: var(--Primary-Colour);
     border-radius: 20px;
-    left: 52.5%;
+    left: 27.5%;
+    padding-top: 15px;
 }
 
 .CalendarBtn:hover{

@@ -42,7 +42,9 @@ def SignUp():
 @app.route("/Home", methods=["POST", "GET"])
 def Home():
     name = Current_User.GetFName()
-    return render_template("Home.html", Name=name)
+    relaxation = Current_User.GetAllData("Streaming")
+    calendar = Current_User.GetAllData("Events")
+    return render_template("Home.html", Name=name, Rdata = relaxation, Cdata = calendar)
 
 if __name__ == "__main__":
     app.run(debug=True)

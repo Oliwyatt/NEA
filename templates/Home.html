@@ -13,9 +13,50 @@
         </h1>
     </div>
     <div class="Relaxtion-Container">
+        <div class="Relaxation-Table">
+            <table>
+                <th>Shows</th>
+                <tr>
+                    <td>Show number</td>
+                    <td>Show name</td>
+                    <td>Rating</td>
+                </tr>
+                {% for i in range(5) %}
+                <tr>
+                    {% for j in range((i*3, (i*3)+2) %}
+                        <td>
+                            {{Rdata[j]}}
+                        </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
         <button onclick="window.location.href = '/Relaxation'" class="RelaxationBtn">Relaxation</button>
     </div>
     <div class="Calendar-Container">
+        <div class="Calendar-Table">
+            <table>
+                <th>Calendar</th>
+                <tr>
+                    <td>Event number</td>
+                    <td>Event name</td>
+                    <td>Start time</td>
+                    <td>End time</td>
+                    <td>Type</td>
+                    <td>Priority</td>
+                </tr>
+                {% for i in range(5) %}
+                <tr>
+                    {% for j in range((i*6, (i*6)+5) %}
+                        <td>
+                            {{Cdata[j]}}
+                        </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
         <button onclick="window.location.href = '/Calendar'" class="CalendarBtn">Calendar</button>
     </div>
 </body>

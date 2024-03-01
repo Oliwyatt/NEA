@@ -43,7 +43,7 @@ def SignUp():
 def Home():
     name = Current_User.GetFName()
     relaxation = Current_User.GetAllData("Streaming")
-    calendar = Current_User.GetAllData("Events")
+    calendar = Current_User.GetAllData("Event")
     return render_template("Home.html", Name=name, Rdata = relaxation, Cdata = calendar)
 
 if __name__ == "__main__":

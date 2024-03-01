@@ -185,6 +185,18 @@ class user():
             return True # Login was successfull
         else:
             return False # Login Failed wrong email or password
+    
+    def GetAllData(self, table):
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """SELECT * FROM {Table}
+                     WHERE UserID = ?;
+                  """.format(Table=table)
+            Values = (self.__UserID(),)
+            cursor.execute(sql, Values)
+            result = cursor.fetchall()
+            return result
+            
 
 #Sign up
 #log in (access sql)

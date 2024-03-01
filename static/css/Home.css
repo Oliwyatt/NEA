@@ -43,19 +43,39 @@ body{
     left: 50%;
 }
 
-.ChoiceBtn{
-    font-size: 22px;
+.RelaxationBtn{
+    font-size: 30px;
     font-weight: 600;
     color: var(--Main-Text-Colour);
-    height: 13%!important;
-    width: 80%!important;
+    height: 13%;
+    width: 45%;
     text-align: center;
     background: var(--Secondary-Colour);
     border-radius: 20px;
+    left: 2.5%;
     cursor: pointer;
 }
 
-.ChoiceBtn:hover{
-    transition: 0.2s;
-    background: var(--Primary-Gradient);
+.CalendarBtn{
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--Main-Text-Colour);
+    height: 13%;
+    width: 45%;
+    text-align: center;
+    background: var(--Primary-Colour);
+    border-radius: 20px;
+    left: 52.5%;
+}
+
+.CalendarBtn:hover{
+    transition: 1s;
+    background: #e13f3f;
+    cursor: pointer;
+}
+
+.RelaxationBtn:hover{
+    transition: 1s;
+    background: #513ad7;
+    cursor: pointer;
 }

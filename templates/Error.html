@@ -1,0 +1,12 @@
+{% extends "Base.html" %}
+
+{% block head %}
+<title>Error!</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Error.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="Error-Container">
+    <h1>Uh Oh! An error has occured: {{Error}}. Click <a href="/">here</a> to go back to login.</h1>
+</div>
+{% endblock %}

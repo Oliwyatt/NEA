@@ -2,8 +2,8 @@
     --Main-BG-Colour: #0e0a0a;
     --Secondary-BG-Colour: #6d6666;
     --Main-Text-Colour: #c0afaf;
-    --Primary-Colour: #aa2222;
-    --Secondary-Colour: #1c2f64;
+    --Primary-Colour: #a72828;
+    --Secondary-Colour: #122350;
     --Primary-Gradient: linear-gradient(90deg, var(--Primary-Colour), var(--Secondary-Colour));
     --Rev-Primary-Gradient: linear-gradient(90deg, var(--Secondary-Colour), var(--Primary-Colour))
 }

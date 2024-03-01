@@ -1,0 +1,21 @@
+@import "{{ url_for('static', filename=('css/Base.css')) }}";
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--Main-Text-Colour);
+}
+
+.Error-Container{
+    display: flex;
+    position: relative;
+
+    height: 20%;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.Error-Container a{
+    cursor: pointer;
+}

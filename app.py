@@ -21,22 +21,20 @@ def index():
                 return redirect("/")
         else:
             return render_template("Index.html")
-    except:
-        print("There was an error with login")
-        return redirect("/")
+    except Exception as err:
+        return redirect("/Error", Error=err)
 
 
 @app.route("/SignUp", methods=["POST", "GET"])
 def SignUp():
     if request.method == "POST":
-        Current_User = Data.user()
         try:
             if Current_User.signup(FName=request.form["FName"], LName=request.form["LName"], Email=request.form["Email"], Password=request.form["Password"]):
                 return redirect("/")
             else:
                 return redirect("/SignUp")
-        except:
-            return redirect("/SignUp")
+        except Exception as err:
+            return redirect("/Error", Error=err)
     else:
         return render_template("SignUp.html")
 

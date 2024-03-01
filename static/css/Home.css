@@ -43,6 +43,19 @@ body{
     left: 50%;
 }
 
-* a{
+.ChoiceBtn{
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--Main-Text-Colour);
+    height: 13%!important;
+    width: 80%!important;
+    text-align: center;
+    background: var(--Secondary-Colour);
+    border-radius: 20px;
     cursor: pointer;
+}
+
+.ChoiceBtn:hover{
+    transition: 0.2s;
+    background: var(--Primary-Gradient);
 }

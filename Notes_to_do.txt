@@ -1,5 +1,5 @@
 Exception handling for user inputting nothing in 
-
+Streaming is wrong: rename to shows and make link streaming and make rating go in new streaming
 
 Idea:
 

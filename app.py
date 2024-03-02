@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from datetime import date
 import Data
 
 global Current_User
@@ -42,8 +43,9 @@ def SignUp():
 @app.route("/Home", methods=["POST", "GET"])
 def Home():
     name = Current_User.GetFName()
-    relaxation = Current_User.GetAllData("Streaming")
-    calendar = Current_User.GetAllData("Event")
+    Date = date.today()
+    relaxation = Current_User.GetAllEData()
+    calendar = Current_User.GetTodaysCalendar(Date)
     return render_template("Home.html", Name=name, Rdata = relaxation, Cdata = calendar)
 
 if __name__ == "__main__":

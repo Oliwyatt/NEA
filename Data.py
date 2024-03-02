@@ -186,13 +186,24 @@ class user():
         else:
             return False # Login Failed wrong email or password
     
-    def GetAllData(self, table):
+    def GetAllRData(self):
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
-            sql = """SELECT * FROM {Table}
+            sql = """SELECT * FROM Streaming
                      WHERE UserID = ?;
-                  """.format(Table=table)
+                  """
             Values = (self.__UserID(),)
+            cursor.execute(sql, Values)
+            result = cursor.fetchall()
+            return result
+        
+    def GetTodaysCalendar(self, Date):
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """SELECT * FROM Event
+                     WHERE UserID = ? AND WHERE Start LIKE ?;
+                  """
+            Values = (self.__UserID(), Date)
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result

@@ -3,16 +3,16 @@ from datetime import datetime
 
 # Define the data to be inserted
 event_data = [
-    (1, "Stranger Things"),
-    (2, "The Crown"),
-    (3, "Breaking Bad"),
-    (4, "Friends"),
-    (5, "Game of Thrones"),
-    (6, "The Office"),
-    (7, "Black Mirror"),
-    (8, "The Mandalorian"),
-    (9, "The Witcher"),
-    (10, "Money Heist")
+    (1, 1, 8),
+    (1, 2, 4),
+    (1, 3, 9),
+    (1, 4, 9),
+    (1, 5, 10),
+    (1, 6, 7),
+    (1, 7, 3),
+    (1, 8, 9),
+    (1, 9, 10),
+    (1, 10, 2)
 ]
 
 # Connect to the database
@@ -21,8 +21,8 @@ cursor = conn.cursor()
 
 # Insert data into the Event table
 for event in event_data:
-    cursor.execute('''INSERT INTO Show (ShowID, ShowName)
-                      VALUES (?, ?)''', event)
+    cursor.execute('''INSERT INTO Streaming (UserID, ShowID, Rating)
+                      VALUES (?, ?, ?)''', event)
 
 # Commit changes and close connection
 conn.commit()

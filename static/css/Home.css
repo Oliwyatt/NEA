@@ -47,6 +47,23 @@ body{
     justify-content: center;
 }
 
+.Relaxation-Table table th{
+    text-align: center;
+}
+
+.Relaxation-Table table tr td{
+    text-align: center;
+}
+
+.Relaxation-Table table{
+    width: 100%;
+    height: 100%;
+}
+
+.Relaxation-Table tr:nth-child(odd){
+    background-color: var(--Secondary-BG-Colour);
+}
+
 .Calendar-Table{
     position: relative;
     height: 75%;
@@ -55,8 +72,27 @@ body{
     justify-content: center;
 }
 
+.Calendar-Table table th{
+    text-align: center;
+    border: #e13f3f 1px solid;
+    border-collapse: collapse;
+    background-color: #6e0909;
+}
+
+.Calendar-Container tr td{
+    text-align: center;
+    border: #e13f3f 1px solid;
+    border-collapse: collapse;
+    background-color: #6e0909;
+}
+
+.Calendar-Table table{
+    width: 100%;
+    height: 100%;
+}
+
 .RelaxationBtn{
-    position: relative;
+    position: absolute;
     font-size: 30px;
     font-weight: 600;
     color: var(--Main-Text-Colour);
@@ -66,12 +102,12 @@ body{
     background: var(--Secondary-Colour);
     border-radius: 20px;
     left: 27.5%;
-    padding-top: 15px;
+    bottom: 7%;
     cursor: pointer;
 }
 
 .CalendarBtn{
-    position: relative;
+    position: absolute;
     font-size: 30px;
     font-weight: 600;
     color: var(--Main-Text-Colour);
@@ -81,7 +117,7 @@ body{
     background: var(--Primary-Colour);
     border-radius: 20px;
     left: 27.5%;
-    padding-top: 15px;
+    bottom: 7%;
 }
 
 .CalendarBtn:hover{

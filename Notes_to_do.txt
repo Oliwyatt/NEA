@@ -2,6 +2,10 @@ Exception handling for user inputting nothing in
 Streaming is wrong: rename to shows and make link streaming and make rating go in new streaming
 
 Idea:
+for sign up
+Email verification create random code put in sql compare when email is sent then Y verify in User
+then add to login also check verfiy.
+create temp gmail for this.
 
 Enter Email: Search For Email If Not Found Send To Sign UP, If Found Send To Login
 If Email Found Show Password Box

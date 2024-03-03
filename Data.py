@@ -29,17 +29,17 @@ def Initialise():
                """
         cursor.execute(sql)
         # Creating Streaming table
-        sql = """CREATE TABLE IF NOT EXISTS Streaming(
+        sql = """CREATE TABLE IF NOT EXISTS Show(
                  ShowID integer,
                  ShowName text NOT NULL,
-                 Rating integer,
                  Primary key(ShowID));
               """
         cursor.execute(sql)
         # Creating Link table
-        sql = """CREATE TABLE IF NOT EXISTS Link(
+        sql = """CREATE TABLE IF NOT EXISTS Streaming(
                  UserID integer,
                  ShowID integer,
+                 Rating integer,
                  Foreign key(UserID) References User,
                  Foreign key(ShowID) References Streaming,
                  Primary key(UserID, ShowID));
@@ -189,23 +189,31 @@ class user():
     def GetAllRData(self):
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
-            sql = """SELECT * FROM Streaming
-                     WHERE UserID = ?;
+            sql = """SELECT Show.ShowName, Streaming.Rating FROM Streaming
+                     INNER JOIN Show
+                     ON Streaming.ShowID = Show.ShowID
+                     WHERE UserID = ?
+                     ORDER BY Streaming.Rating DESC
+                     LIMIT 5;
                   """
-            Values = (self.__UserID(),)
+            Values = (self.Get__UserID(),)
             cursor.execute(sql, Values)
             result = cursor.fetchall()
+            print(result)
             return result
         
     def GetTodaysCalendar(self, Date):
+        Date = "%"+Date+"%"
+        print(Date)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
-            sql = """SELECT * FROM Event
-                     WHERE UserID = ? AND WHERE Start LIKE ?;
+            sql = """SELECT EventName, Start, End, Type, Priority FROM Event
+                     WHERE UserID = ? AND Start LIKE ?;
                   """
-            Values = (self.__UserID(), Date)
+            Values = (self.Get__UserID(), Date)
             cursor.execute(sql, Values)
             result = cursor.fetchall()
+            print(result)
             return result
             
 

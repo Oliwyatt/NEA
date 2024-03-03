@@ -23,7 +23,7 @@ def index():
         else:
             return render_template("Index.html")
     except Exception as err:
-        return redirect("/Error", Error=err)
+        return render_template("/Error", Error=err)
 
 
 @app.route("/SignUp", methods=["POST", "GET"])
@@ -35,7 +35,7 @@ def SignUp():
             else:
                 return redirect("/SignUp")
         except Exception as err:
-            return redirect("/Error", Error=err)
+            return render_template("/Error", Error=err)
     else:
         return render_template("SignUp.html")
 
@@ -43,10 +43,16 @@ def SignUp():
 @app.route("/Home", methods=["POST", "GET"])
 def Home():
     name = Current_User.GetFName()
-    Date = date.today()
-    relaxation = Current_User.GetAllEData()
+    Date = str(date.today())
+    relaxation = Current_User.GetAllRData()
     calendar = Current_User.GetTodaysCalendar(Date)
+    print(relaxation)
+    print(calendar)
     return render_template("Home.html", Name=name, Rdata = relaxation, Cdata = calendar)
+
+@app.route("/Calendar", methods=["POST", "GET"])
+def Calendar():
+    return render_template("Calendar.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

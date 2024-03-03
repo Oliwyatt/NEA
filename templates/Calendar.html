@@ -2,9 +2,8 @@
 
 {% block head %}
 <title>Document</title>
-<link rel="stylesheet" href="/static/css/Base.css">
-<link rel="stylesheet" href="/static/css/Calendar.css">
-<link rel="stylesheet" href=""
+<link rel="stylesheet" href="{{ url_for('static', '/css/Base.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', '/css/Calendar.css')}}">
 {% endblock %}
 
 {% block body %}

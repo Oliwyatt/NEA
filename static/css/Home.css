@@ -79,7 +79,7 @@ body{
     background-color: #6e0909;
 }
 
-.Calendar-Container tr td{
+.Calendar-Table tr td{
     text-align: center;
     border: #e13f3f 1px solid;
     border-collapse: collapse;

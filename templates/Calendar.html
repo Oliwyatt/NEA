@@ -2,20 +2,72 @@
 
 {% block head %}
 <title>Document</title>
-<link rel="stylesheet" href="{{ url_for('static', '/css/Base.css')}}">
-<link rel="stylesheet" href="{{ url_for('static', '/css/Calendar.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Calendar.css') }}">
 {% endblock %}
 
 {% block body %}
 <div class="Main-Container">
-    <div class="Sidebar"></div>
-    <div class="Calender">
-        <div class="Month">
-            <div class="Date">
-                <h1>13th</h1>
-                <p>Go To Club</p>
-            </div>
-        </div>
+    <div class="Calendar-Container">
+        <table class="Calendar-Table">
+            <th colspan="5">Calendar</th>
+            <tr>
+                <td>Event name</td>
+                <td>Start time</td>
+                <td>End time</td>
+                <td>Type</td>
+                <td>Priority</td>
+            </tr>
+            {% for event in Cdata %}
+            <tr>
+                {% for piece in event %}
+                    <td>
+                        {{piece}}
+                    </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
     </div>
-</div>
+    <div class="Options-Container">
+        <form action="/Calendar" method="POST" class="Options-Form" name="Options">
+            <select name="Year" id="Year" onchange="Options.submit()">
+                <option value="{{Year}}">Year</option>
+                {% for i in range(Year, Year + 5) %}
+                    <option value={{i}}>{{i}}</option>
+                {% endfor %}
+            </select>
+            <select name="Month" id="Month" onchange="Options.submit()">
+                <option value="{{Month}}">Month</option>
+                <option value=1>Jan</option>
+                <option value=2>Feb</option>
+                <option value=3>Mar</option>
+                <option value=4>Apr</option>
+                <option value=5>May</option>
+                <option value=6>Jun</option>
+                <option value=7>Jul</option>
+                <option value=8>Aug</option>
+                <option value=9>Sep</option>
+                <option value=10>Oct</option>
+                <option value=11>Nov</option>
+                <option value=12>Dec</option>
+            </select>
+            <select name="Day" id="Day" onchange="Options.submit()">
+                <option value="{{Day}}">Today</option>
+                {% for i in range(Monthlen) %}
+                    <option value={{i+1}}>{{i+1}}</option>
+                {% endfor %}
+            </select>
+            <select name="View" id="View" onchange="Options.submit()">
+                <option value="Week">Select view</option>
+                <option value="Week">Week view</option>
+                <option value="Month">Month view</option>
+            </select>
+            <select name="Filter" id="Filter" onchange="Options.submit()">
+                <option value="None">No Filter</option>
+                <option value="Priority">Priority</option>
+                <option value="W">Work</option>
+                <option value="P">Personal</option>
+            </select>
+        </form>
+    </div>
 {% endblock %}

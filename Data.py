@@ -1,4 +1,6 @@
 import sqlite3
+from datetime import date
+import calendar
 
 def Initialise():
     # Creating tables if they dont exist
@@ -199,8 +201,34 @@ class user():
             Values = (self.Get__UserID(),)
             cursor.execute(sql, Values)
             result = cursor.fetchall()
-            print(result)
             return result
+        
+    def __GetWeek(self, Date):
+        res = Date.weekday()
+        start = date(Date.year, Date.month, Date.day - res)
+        day_add = 6
+        Month_end = calendar.monthrange(start.year, start.month)[1]
+        S_Day = start.day
+        S_Month = start.month
+        S_Year = start.year
+        if S_Day + day_add > Month_end:
+            New_Day = (Month_end - S_Day)
+            if S_Month == 12:
+                New_Month = 1
+                New_Year = S_Year + 1
+            else:
+                New_Month = S_Month + 1
+                New_Year = S_Year
+            end = date(New_Year, New_Month, New_Day + 1)
+        else:
+            end = date(S_Year, S_Month, S_Day + day_add + 1)
+        return start, end
+    
+    def __GetMonth(self, Date):
+        res = calendar.monthrange(Date.year, Date.month)[1]
+        start = date(Date.year, Date.month, 1)
+        end = date(Date.year, Date.month, res)
+        return start, end
         
     def GetTodaysCalendar(self, Date):
         Date = "%"+Date+"%"
@@ -213,13 +241,47 @@ class user():
             Values = (self.Get__UserID(), Date)
             cursor.execute(sql, Values)
             result = cursor.fetchall()
-            print(result)
             return result
+    
+    def GetCalendar(self, Date, View):
+        if View == "Week":
+            start, end = self.__GetWeek(Date)
+        elif View == "Month":
+            start, end = self.__GetMonth(Date)
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """SELECT EventName, Start, End, Type, Priority FROM Event
+                     WHERE UserID = ? AND Start BETWEEN ? AND ?;
+                  """
+            Values = (self.Get__UserID(), str(start), str(end))
+            cursor.execute(sql, Values)
+            result = cursor.fetchall()
+            return result
+        
+    def GetFilteredCalendar(self, Date, Filter, View):
+        if View == "Week":
+            start, end = self.__GetWeek(Date)
+        elif View == "Month":
+            start, end = self.__GetMonth(Date)
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            if Filter != "Priority":
+                sql = """SELECT EventName, Start, End, Type, Priority FROM Event
+                        WHERE UserID = ? AND Type = ? AND Start BETWEEN ? AND ?;
+                    """
+                Values = (self.Get__UserID(),Filter ,str(start), str(end))
+            else:
+                sql = """SELECT EventName, Start, End, Type, Priority FROM Event
+                        WHERE UserID = ? AND Start BETWEEN ? AND ?
+                        ORDER BY Priority;
+                    """
+                Values = (self.Get__UserID(), str(start), str(end))
             
+            cursor.execute(sql, Values)
+            result = cursor.fetchall()
+            return result
 
-#Sign up
-#log in (access sql)
-#password system?
+
 
 class edit(): #self, user, table, mode):
     pass

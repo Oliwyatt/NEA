@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
+import calendar
 import Data
 
 global Current_User
@@ -44,15 +45,31 @@ def SignUp():
 def Home():
     name = Current_User.GetFName()
     Date = str(date.today())
-    relaxation = Current_User.GetAllRData()
-    calendar = Current_User.GetTodaysCalendar(Date)
-    print(relaxation)
-    print(calendar)
-    return render_template("Home.html", Name=name, Rdata = relaxation, Cdata = calendar)
+    Relaxation = Current_User.GetAllRData()
+    Calendar = Current_User.GetTodaysCalendar(Date)
+    return render_template("Home.html", Name=name, Rdata = Relaxation, Cdata = Calendar)
 
 @app.route("/Calendar", methods=["POST", "GET"])
 def Calendar():
-    return render_template("Calendar.html")
+    today = date.today()
+    Monthlen = calendar.monthrange(today.year, today.month)[1]
+    Calendar = Current_User.GetTodaysCalendar(str(today))
+    if request.method == "POST":
+        try:
+            Date = date(int(request.form["Year"]), int(request.form["Month"]), int(request.form["Day"]))
+            if request.form["Filter"] == "None":
+                Calendar = Current_User.GetCalendar(Date, request.form["View"])
+            elif request.form["Filter"] != "None":
+                Calendar = Current_User.GetFilteredCalendar(Date, request.form["Filter"], request.form["View"])
+            return render_template("Calendar.html", Year=today.year, Month=today.month, Day=today.day, Monthlen=Monthlen, Cdata = Calendar)
+        except Exception as err:
+            return render_template("Error.html", Error=err)
+    else:
+        return render_template("Calendar.html", Year=today.year, Month=today.month, Day=today.day, Monthlen=Monthlen, Cdata = Calendar)
+    
+@app.route("/Error")
+def Error(Error):
+    return render_template("Error.html", Error)
 
 if __name__ == "__main__":
     app.run(debug=True)

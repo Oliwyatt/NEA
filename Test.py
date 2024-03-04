@@ -1,3 +1,4 @@
+"""
 import sqlite3
 from datetime import datetime
 
@@ -29,3 +30,44 @@ conn.commit()
 conn.close()
 
 print("Data inserted successfully.")
+"""
+
+from datetime import date
+import calendar
+
+# Day view
+"""
+
+"""
+
+# Week view
+today = date.today() # Server output
+res = today.weekday()
+start = date(today.year, today.month, today.day - res)
+day_add = 6
+Month_end = calendar.monthrange(start.year, start.month)[1]
+S_Day = start.day
+S_Month = start.month
+S_Year = start.year
+if S_Day + day_add > Month_end:
+    New_Day = (Month_end - S_Day)
+    if S_Month == 12:
+        New_Month = 1
+        New_Year = S_Year + 1
+    else:
+        New_Month = S_Month + 1
+        New_Year = S_Year
+    end = date(New_Year, New_Month, New_Day)
+else:
+    end = date(S_Year, S_Month, S_Day + day_add)
+
+print(str(start), str(end))
+
+# Month view
+
+today = date.today() # Server output
+res = calendar.monthrange(today.year, today.month)[1]
+start = date(today.year, today.month, 1)
+end = date(today.year, today.month, res)
+print(str(start), str(end))
+

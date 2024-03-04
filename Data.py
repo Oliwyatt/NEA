@@ -30,14 +30,14 @@ def Initialise():
                  Foreign key(UserID) References User);
                """
         cursor.execute(sql)
-        # Creating Streaming table
+        # Creating Show table
         sql = """CREATE TABLE IF NOT EXISTS Show(
                  ShowID integer,
                  ShowName text NOT NULL,
                  Primary key(ShowID));
               """
         cursor.execute(sql)
-        # Creating Link table
+        # Creating Streaming table
         sql = """CREATE TABLE IF NOT EXISTS Streaming(
                  UserID integer,
                  ShowID integer,

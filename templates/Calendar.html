@@ -9,13 +9,14 @@
 <div class="Main-Container">
     <div class="Calendar-Container">
         <table class="Calendar-Table">
-            <th colspan="5">Calendar</th>
+            <th colspan="6">Calendar</th>
             <tr>
                 <td>Event name</td>
                 <td>Start time</td>
                 <td>End time</td>
                 <td>Type</td>
                 <td>Priority</td>
+                <td>Edit</td>
             </tr>
             {% for event in Cdata %}
             <tr>
@@ -24,19 +25,23 @@
                         {{piece}}
                     </td>
                 {% endfor %}
+                <td>
+                    <a href="/Calendar/Update">Update/</a>
+                    <a href="/Calendar/Delete">Delete</a>
+                </td>
             </tr>
             {% endfor %}
         </table>
     </div>
     <div class="Options-Container">
         <form action="/Calendar" method="POST" class="Options-Form" name="Options">
-            <select name="Year" id="Year" onchange="Options.submit()">
+            <select name="Year" id="Year">
                 <option value="{{Year}}">Year</option>
                 {% for i in range(Year, Year + 5) %}
                     <option value={{i}}>{{i}}</option>
                 {% endfor %}
             </select>
-            <select name="Month" id="Month" onchange="Options.submit()">
+            <select name="Month" id="Month">
                 <option value="{{Month}}">Month</option>
                 <option value=1>Jan</option>
                 <option value=2>Feb</option>
@@ -51,23 +56,24 @@
                 <option value=11>Nov</option>
                 <option value=12>Dec</option>
             </select>
-            <select name="Day" id="Day" onchange="Options.submit()">
+            <select name="Day" id="Day">
                 <option value="{{Day}}">Today</option>
                 {% for i in range(Monthlen) %}
                     <option value={{i+1}}>{{i+1}}</option>
                 {% endfor %}
             </select>
-            <select name="View" id="View" onchange="Options.submit()">
+            <select name="View" id="View">
                 <option value="Week">Select view</option>
                 <option value="Week">Week view</option>
                 <option value="Month">Month view</option>
             </select>
-            <select name="Filter" id="Filter" onchange="Options.submit()">
+            <select name="Filter" id="Filter">
                 <option value="None">No Filter</option>
                 <option value="Priority">Priority</option>
                 <option value="W">Work</option>
                 <option value="P">Personal</option>
             </select>
+            <input type="submit" name="Submit" id="Submit" class="Submit-Button">
         </form>
     </div>
 {% endblock %}

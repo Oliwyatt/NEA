@@ -1,0 +1,61 @@
+{% extends "Base.html" %}
+
+{% block head %}
+<title>Life Organiser</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Home.css') }}">
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="Heading-Container">
+        <h1>Hello {{ Name }}, good to see you.
+            What do you want to access today?
+        </h1>
+    </div>
+    <div class="Relaxtion-Container">
+        <div class="Relaxation-Table">
+            <table>
+                <th colspan="2">Entertainment</th>
+                <tr>
+                    <td>Show name</td>
+                    <td>Rating</td>
+                </tr>
+                {% for show in Rdata %}
+                <tr>
+                    {% for each in show %}
+                        <td>
+                            {{each}}
+                        </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <button onclick="window.location.href = '/Relaxation'" class="RelaxationBtn">Relaxation</button>
+    </div>
+    <div class="Calendar-Container">
+        <div class="Calendar-Table">
+            <table>
+                <th colspan="5">Calendar</th>
+                <tr>
+                    <td>Event name</td>
+                    <td>Start time</td>
+                    <td>End time</td>
+                    <td>Type</td>
+                    <td>Priority</td>
+                </tr>
+                {% for event in Cdata %}
+                <tr>
+                    {% for piece in event %}
+                        <td>
+                            {{piece}}
+                        </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <button onclick="window.location.href = '/Calendar'" class="CalendarBtn">Calendar</button>
+    </div>
+</body>
+{% endblock %}

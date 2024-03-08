@@ -1,0 +1,76 @@
+@import "{{ url_for('static', filename=('css/Base.css')) }}";
+
+body{
+    background-color: var(--Main-BG-Colour);
+    color: var(--Main-Text-Colour);
+}
+
+.Calendar-Container{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    width: 100%;
+    background-color: var(--Primary-Colour);
+
+}
+
+.Calendar-Table{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.Calendar-Table th{
+    text-align: center;
+    border: #e13f3f 1px solid;
+    border-collapse: collapse;
+    background-color: #6e0909;
+}
+
+.Calendar-Table tr td{
+    text-align: center;
+    border: #e13f3f 1px solid;
+    border-collapse: collapse;
+    background-color: #6e0909;
+}
+
+.Options-Container{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20%;
+    width: 100%;
+    top: 80%;
+    background: var(--Rev-Primary-Gradient);
+
+}
+
+.Options-Form{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.Options-Form select{
+    margin: 2%;
+    height: 75%;
+    width: 16%;
+    background: var(--Secondary-Colour);
+    color: var(--Main-Text-Colour);
+    text-align: center;
+}
+
+.Options-Form input{
+    margin: 2%;
+    height: 75%;
+    width: 16%;
+    background: var(--Secondary-Colour);
+    color: var(--Main-Text-Colour);
+    text-align: center;
+}

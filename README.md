@@ -13,4 +13,7 @@
 # Events: Storing the calendar events that the user inputs and holding the type (personal or work) to be filtered.
 # I hope to have SQL permissions on what data they can access and for admin to have any access.
 
-# The 'website' frontend will have a login system validated with the info on the database 
+#Frontend:
+# The 'website' frontend will have a login system validated with the info on the database.
+# Then lead to a main menu where you can choose between the relaxation area and calendar.
+# The relaxation area will 

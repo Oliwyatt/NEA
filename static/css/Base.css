@@ -1,0 +1,53 @@
+:root{
+    --Main-BG-Colour: #0e0a0a;
+    --Secondary-BG-Colour: #6d6666;
+    --Main-Text-Colour: #c0afaf;
+    --Primary-Colour: #a72828;
+    --Secondary-Colour: #122350;
+    --Primary-Gradient: linear-gradient(90deg, var(--Primary-Colour), var(--Secondary-Colour));
+    --Rev-Primary-Gradient: linear-gradient(90deg, var(--Secondary-Colour), var(--Primary-Colour))
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+.Main-Container{
+    display: flex;
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--Main-BG-Colour);
+}
+
+.Page-Container{
+    display: flex;
+    position: absolute;
+    width: 40%;
+    height: 60%;
+    top: 25%;
+    left: 30%;
+    background: var(--Primary-Gradient);
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.Page-Container form{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.Page-Container form input{
+    width: 80%;
+    height: 10%;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 500;
+}

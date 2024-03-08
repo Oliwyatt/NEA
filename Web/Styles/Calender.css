@@ -1,0 +1,6 @@
+@import url("/Web/Styles/Main.css");
+
+body{
+    background-color: var(--Main-BG-Colour);
+    color: var(--Main-Text-Colour);
+}

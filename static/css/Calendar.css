@@ -74,3 +74,21 @@ body{
     color: var(--Main-Text-Colour);
     text-align: center;
 }
+
+.OptionBtn{
+    position: relative;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--Main-Text-Colour);
+    height: 25%;
+    width: 80%;
+    background-color: #6e0909;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.OptionBtns :hover{
+    transition: 0.1s;
+    cursor: pointer;
+}

@@ -91,43 +91,22 @@ body{
     height: 100%;
 }
 
-.RelaxationBtn{
-    position: absolute;
-    font-size: 30px;
-    font-weight: 600;
-    color: var(--Main-Text-Colour);
-    height: 13%;
-    width: 45%;
-    text-align: center;
-    background: var(--Secondary-Colour);
-    border-radius: 20px;
-    left: 27.5%;
-    bottom: 7%;
-    cursor: pointer;
-}
-
 .CalendarBtn{
     position: absolute;
     font-size: 30px;
     font-weight: 600;
     color: var(--Main-Text-Colour);
-    height: 13%;
-    width: 45%;
+    height: 12%;
+    width: 50%;
     text-align: center;
-    background: var(--Primary-Colour);
+    background: var(--Rev-Primary-Gradient);
     border-radius: 20px;
-    left: 27.5%;
-    bottom: 7%;
+    left: 25%;
+    bottom: 4%;
 }
 
 .CalendarBtn:hover{
     transition: 1s;
-    background: #e13f3f;
-    cursor: pointer;
-}
-
-.RelaxationBtn:hover{
-    transition: 1s;
-    background: #513ad7;
+    background: var(--Primary-Gradient);
     cursor: pointer;
 }

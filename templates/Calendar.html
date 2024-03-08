@@ -1,7 +1,7 @@
 {% extends "Base.html" %}
 
 {% block head %}
-<title>Document</title>
+<title>Calendar</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/Calendar.css') }}">
 {% endblock %}
 
@@ -25,9 +25,9 @@
                         {{piece}}
                     </td>
                 {% endfor %}
-                <td>
-                    <a href="/Calendar/Update">Update/</a>
-                    <a href="/Calendar/Delete">Delete</a>
+                <td class="OptionBtns">
+                    <button onclick="window.location.href = '/Calendar/Update'" class="OptionBtn">Update</button>
+                    <button onclick="window.location.href = '/Calendar/Delete'" class="OptionBtn">Delete</button>
                 </td>
             </tr>
             {% endfor %}

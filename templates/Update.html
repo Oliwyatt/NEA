@@ -1,0 +1,21 @@
+{% extends "Base.html" %}
+
+{% block head %}
+<title>Calendar Update</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Update.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="Main-Container">
+    <div class="Update-Container">
+        <h2>Update Event, leave blank for no changes:</h2>
+        <form action="/Calendar" method="POST" class="Update-Form">
+            <input type="text" name="Event-Name" id="Event-Name" placeholder="New Event Name">
+            <p>Start Time:<input type="datetime" name="Start-Time" id="Start-Time"></p>
+            <p>End Time:<input type="datetime" name="End-Time" id="End-Time"></p>
+            <input type="text" name="Type" id="Type" placeholder="Type:W or P">
+            <input type="number" name="Priority" id="Priority" placeholder="1-10">
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -19,17 +19,20 @@
                 <td>Edit</td>
             </tr>
             {% for event in Cdata %}
-            <tr>
-                {% for piece in event %}
-                    <td>
-                        {{piece}}
+            <form method="POST">
+                <tr>
+                    {% for piece in event[1:] %}
+                        <td value="{{piece}}">
+                            <input type="text" name="Calendar-Data" value="{{piece}}" readonly hidden>
+                            {{piece}}
+                        </td>
+                    {% endfor %}
+                    <td class="OptionBtns">
+                        <button formaction="/Calendar/Update" class="OptionBtn" type="submit" value={{event[0]}} name="Update">Update</button>
+                        <button formaction="/Calendar/Delete" class="OptionBtn" type="submit" value={{event[0]}} name="Delete">Delete</button>
                     </td>
-                {% endfor %}
-                <td class="OptionBtns">
-                    <button onclick="window.location.href = '/Calendar/Update'" class="OptionBtn">Update</button>
-                    <button onclick="window.location.href = '/Calendar/Delete'" class="OptionBtn">Delete</button>
-                </td>
-            </tr>
+                </tr>
+            </form>
             {% endfor %}
         </table>
     </div>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import calendar
@@ -61,20 +61,32 @@ def Calendar():
                 Calendar = Current_User.GetCalendar(Date, request.form["View"])
             elif request.form["Filter"] != "None":
                 Calendar = Current_User.GetFilteredCalendar(Date, request.form["Filter"], request.form["View"])
-            return render_template("Calendar.html", Year=today.year, Month=today.month, Day=today.day, Monthlen=Monthlen, Cdata = Calendar)
+            return render_template("Calendar.html", Year=today.year, Month=today.month, Day=today.day, Monthlen=Monthlen, Cdata=Calendar)
         except Exception as err:
             return render_template("Error.html", Error=err)
     else:
-        return render_template("Calendar.html", Year=today.year, Month=today.month, Day=today.day, Monthlen=Monthlen, Cdata = Calendar)
+        return render_template("Calendar.html", Year=today.year, Month=today.month, Day=today.day, Monthlen=Monthlen, Cdata=Calendar)
     
-@app.route("/Calendar/Update" methods=["POST", "GET"])
+@app.route("/Calendar/Update", methods=["POST", "GET"])
 def Update():
-    if request.method == "POST":
+    if request.method == "POST" and request.form.get("Update", False) != False:
         try:
-            
+            return render_template("Update.html", EventData=request.form.getlist("Calendar-Data"), EventID=request.form["Update"])
+        except Exception as err:
+            return render_template("Error.html", Error=err)
+    elif request.method == "POST" and request.form.get("Update", False) == False:
+        try:
+            Current_User.UpdateCalendar((request.form["Event-Name"], request.form["Start-Time"], request.form["End-Time"], request.form["Type"], request.form["Priority"], request.form["Submit"]))
+            return redirect("/Calendar")
+        except Exception as err:
+            return render_template("Error.html", Error=err)
+    else:
+        return render_template("Update.html")
     
 @app.route("/Error")
 def Error(Error):
     return render_template("Error.html", Error)
+
+
 if __name__ == "__main__":
     app.run(debug=True)

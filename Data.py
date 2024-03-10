@@ -232,10 +232,9 @@ class user():
         
     def GetTodaysCalendar(self, Date):
         Date = "%"+Date+"%"
-        print(Date)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
-            sql = """SELECT EventName, Start, End, Type, Priority FROM Event
+            sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                      WHERE UserID = ? AND Start LIKE ?;
                   """
             Values = (self.Get__UserID(), Date)
@@ -250,7 +249,7 @@ class user():
             start, end = self.__GetMonth(Date)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
-            sql = """SELECT EventName, Start, End, Type, Priority FROM Event
+            sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                      WHERE UserID = ? AND Start BETWEEN ? AND ?;
                   """
             Values = (self.Get__UserID(), str(start), str(end))
@@ -266,12 +265,12 @@ class user():
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
             if Filter != "Priority":
-                sql = """SELECT EventName, Start, End, Type, Priority FROM Event
+                sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                         WHERE UserID = ? AND Type = ? AND Start BETWEEN ? AND ?;
                     """
                 Values = (self.Get__UserID(),Filter ,str(start), str(end))
             else:
-                sql = """SELECT EventName, Start, End, Type, Priority FROM Event
+                sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                         WHERE UserID = ? AND Start BETWEEN ? AND ?
                         ORDER BY Priority;
                     """
@@ -280,8 +279,16 @@ class user():
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
-
-
+    
+    def UpdateCalendar(self, Values):
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """UPDATE Event
+                     SET EventName = ?, Start = ?, End = ?, Type = ?, Priority = ?
+                     WHERE EventID = ?;
+                  """
+            cursor.execute(sql, Values)
+            db.commit()
 
 class edit(): #self, user, table, mode):
     pass

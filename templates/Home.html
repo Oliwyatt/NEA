@@ -45,7 +45,7 @@
                 </tr>
                 {% for event in Cdata %}
                 <tr>
-                    {% for piece in event %}
+                    {% for piece in event[1:] %}
                         <td>
                             {{piece}}
                         </td>

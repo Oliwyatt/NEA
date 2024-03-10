@@ -9,12 +9,15 @@
 <div class="Main-Container">
     <div class="Update-Container">
         <h2>Update Event, leave blank for no changes:</h2>
-        <form action="/Calendar" method="POST" class="Update-Form">
-            <input type="text" name="Event-Name" id="Event-Name" placeholder="New Event Name">
-            <p>Start Time:<input type="datetime" name="Start-Time" id="Start-Time"></p>
-            <p>End Time:<input type="datetime" name="End-Time" id="End-Time"></p>
-            <input type="text" name="Type" id="Type" placeholder="Type:W or P">
-            <input type="number" name="Priority" id="Priority" placeholder="1-10">
+        <form action="/Calendar/Update" method="POST" class="Update-Form" name="Update-Form">
+            <input type="text" name="Event-Name" id="Event-Name" value="{{EventData[0]}}">
+            <label for="Start-Time">Start Time:</label>
+            <input type="datetime-local" name="Start-Time" id="Start-Time" value="{{EventData[1]}}">
+            <label for="End-Time">End Time:</label>
+            <input type="datetime-local" name="End-Time" id="End-Time" value="{{EventData[2]}}">
+            <input type="text" name="Type" id="Type" value="{{EventData[3]}}">
+            <input type="number" name="Priority" id="Priority" value="{{EventData[4]}}">
+            <button type="submit" name="Submit" value={{EventID}}>Submit</button>
         </form>
     </div>
 </div>

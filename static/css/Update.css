@@ -1,2 +1,11 @@
 @import "{{ url_for('static', filename=('css/Base.css')) }}";
 
+.Update-Container{
+    position: absolute;
+    display: flex;
+    height: 80%;
+    width: 100%;
+    top: 20%;
+    justify-content: center;
+    align-items: center;
+}

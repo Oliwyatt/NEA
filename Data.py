@@ -188,6 +188,8 @@ class user():
         else:
             return False # Login Failed wrong email or password
     
+    #Retrieving data from tables
+
     def GetAllRData(self):
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
@@ -203,7 +205,7 @@ class user():
             result = cursor.fetchall()
             return result
         
-    def __GetWeek(self, Date):
+    def __GetWeek(self, Date): # Gets the week to display
         res = Date.weekday()
         start = date(Date.year, Date.month, Date.day - res)
         day_add = 6
@@ -224,7 +226,7 @@ class user():
             end = date(S_Year, S_Month, S_Day + day_add + 1)
         return start, end
     
-    def __GetMonth(self, Date):
+    def __GetMonth(self, Date): # Gets the month to display
         res = calendar.monthrange(Date.year, Date.month)[1]
         start = date(Date.year, Date.month, 1)
         end = date(Date.year, Date.month, res)
@@ -279,6 +281,17 @@ class user():
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
+        
+    def InsertCalendar(self, Values):
+        Values.insert(0, self.Get__UserID())
+        Values = tuple(Values)
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """INSERT INTO Event(UserID, EventName, Start, End, Type, Priority)
+                     VALUES(?, ?, ?, ?, ?, ?);
+                  """
+            cursor.execute(sql, Values)
+            db.commit()
     
     def UpdateCalendar(self, Values):
         with sqlite3.connect("Organiser.db") as db:
@@ -290,8 +303,12 @@ class user():
             cursor.execute(sql, Values)
             db.commit()
 
-class edit(): #self, user, table, mode):
-    pass
-    #update
-    #insert
-    #delete()
+    def DeleteCalendar(self, EventID):
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """Delete From Event
+                     Where EventID = ?;
+                  """
+            Value = (EventID,)
+            cursor.execute(sql, Value)
+            db.commit()

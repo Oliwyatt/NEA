@@ -82,7 +82,29 @@ def Update():
             return render_template("Error.html", Error=err)
     else:
         return render_template("Update.html")
-    
+
+@app.route("/Calendar/Delete", methods=["POST", "GET"])
+def Delete():
+    if request.method == "POST":
+        try:
+            Current_User.DeleteCalendar(request.form["Delete"])
+            return redirect("/Calendar")
+        except Exception as err:
+            return render_template("Error.html", Error=err)
+    else:
+        return render_template("Error.html", Error="There was an error deleting that")
+
+@app.route("/Calendar/Insert", methods=["POST", "GET"])
+def Insert():
+    if request.method == "POST":
+        try:
+            Current_User.InsertCalendar([request.form["Event-Name"], request.form["Start-Time"], request.form["End-Time"], request.form["Type"], request.form["Priority"]])
+            return redirect("/Calendar")
+        except Exception as err:
+            return render_template("Error.html", Error=err)
+    else:
+        return render_template("Insert.html")
+
 @app.route("/Error")
 def Error(Error):
     return render_template("Error.html", Error)

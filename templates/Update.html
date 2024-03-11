@@ -7,8 +7,10 @@
 
 {% block body %}
 <div class="Main-Container">
-    <div class="Update-Container">
+    <div class="Heading-Container">
         <h2>Update Event, leave blank for no changes:</h2>
+    </div>
+    <div class="Update-Container">
         <form action="/Calendar/Update" method="POST" class="Update-Form" name="Update-Form">
             <input type="text" name="Event-Name" id="Event-Name" value="{{EventData[0]}}">
             <label for="Start-Time">Start Time:</label>

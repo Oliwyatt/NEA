@@ -1,11 +1,50 @@
 @import "{{ url_for('static', filename=('css/Base.css')) }}";
 
+body{
+    background-color: var(--Main-BG-Colour);
+    color: var(--Main-Text-Colour);
+}
+
+.Heading-Container{
+    position: absolute;
+    display: flex;
+    height: 20%;
+    width: 80%;
+    left: 10%;
+    justify-content: center;
+    align-items: center;
+    background-color: #5a4192;
+}
+
 .Update-Container{
     position: absolute;
     display: flex;
     height: 80%;
-    width: 100%;
+    width: 80%;
     top: 20%;
+    left: 10%;
     justify-content: center;
     align-items: center;
+    background-color: #570b57;
+}
+
+.Update-Form{
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.Update-Container input{
+    position: relative;
+    height: 30%;
+    width: 12.5%;
+    margin-left: 5px;
+    margin: 0px 5px;
+    font-size: larger;
+    text-align: center;
+    color: var(--Main-Text-Colour);
+    background-color: #6b1c6b;
 }

@@ -18,9 +18,19 @@ body{
     left: 10%;
 }
 
+.Relaxation-Wrapper{
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    height: 75%;
+    width: 100%;
+    background: var(--Secondary-Colour);
+}
+
 .Relaxtion-Container{
     display: flex;
     position: absolute;
+    overflow: hidden;
     height: 70%;
     width: 50%;
     background: var(--Secondary-Colour);
@@ -28,9 +38,23 @@ body{
     top: 30%;
 }
 
+.Relaxation-Wrapper:hover{
+    overflow-y: scroll;
+}
+
+.Calendar-Wrapper{
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    height: 75%;
+    width: 100%;
+    background: var(--Primary-Colour);
+}
+
 .Calendar-Container{
     display: flex;
     position: absolute;
+    overflow: hidden;
     height: 70%;
     width: 50%;
     background: var(--Primary-Colour);
@@ -39,25 +63,33 @@ body{
     left: 50%;
 }
 
+.Calendar-Wrapper:hover{
+    overflow-y: scroll;
+}
+
 .Relaxation-Table{
     position: relative;
-    height: 75%;
+    height: 100%;
     width: 100%;
     align-items: center;
     justify-content: center;
 }
 
 .Relaxation-Table table th{
+    height: 100px;
     text-align: center;
 }
 
-.Relaxation-Table table tr td{
+.Relaxation-Table tr td{
+    height: 40px;
     text-align: center;
 }
 
 .Relaxation-Table table{
     width: 100%;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
+    max-height: none;
 }
 
 .Relaxation-Table tr:nth-child(odd){
@@ -66,13 +98,14 @@ body{
 
 .Calendar-Table{
     position: relative;
-    height: 75%;
+    height: 100%;
     width: 100%;
     align-items: center;
     justify-content: center;
 }
 
 .Calendar-Table table th{
+    height: 100px;
     text-align: center;
     border: #e13f3f 1px solid;
     border-collapse: collapse;
@@ -81,6 +114,7 @@ body{
 
 .Calendar-Table tr td{
     text-align: center;
+    height: 40px;
     border: #e13f3f 1px solid;
     border-collapse: collapse;
     background-color: #6e0909;
@@ -88,7 +122,9 @@ body{
 
 .Calendar-Table table{
     width: 100%;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
+    max-height: none;
 }
 
 .CalendarBtn{

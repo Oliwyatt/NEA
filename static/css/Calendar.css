@@ -5,7 +5,7 @@ body{
     color: var(--Main-Text-Colour);
 }
 
-.Calendar-Container{
+.Calendar-Wrapper{
     position: absolute;
     display: flex;
     align-items: center;
@@ -13,16 +13,31 @@ body{
     height: 80%;
     width: 100%;
     background-color: var(--Primary-Colour);
+}
 
+.Calendar-Container{
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    justify-content: baseline;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: var(--Primary-Colour);
+}
+
+.Calendar-Container:hover{
+    overflow-y: scroll;
 }
 
 .Calendar-Table{
     position: relative;
-    height: 100%;
+    min-height: 20%;
     width: 100%;
 }
 
 .Calendar-Table th{
+    height: 100px;
     text-align: center;
     border: #e13f3f 1px solid;
     border-collapse: collapse;
@@ -30,6 +45,7 @@ body{
 }
 
 .Calendar-Table tr td{
+    height: 70px;
     text-align: center;
     border: #e13f3f 1px solid;
     border-collapse: collapse;
@@ -60,7 +76,7 @@ body{
 .Options-Form select{
     margin: 2%;
     height: 75%;
-    width: 16%;
+    width: 12.5%;
     background: var(--Secondary-Colour);
     color: var(--Main-Text-Colour);
     text-align: center;
@@ -69,7 +85,7 @@ body{
 .Options-Form input{
     margin: 2%;
     height: 75%;
-    width: 16%;
+    width: 12.5%;
     background: var(--Secondary-Colour);
     color: var(--Main-Text-Colour);
     text-align: center;
@@ -87,7 +103,17 @@ body{
     text-align: center;
 }
 
-.OptionBtns :hover{
+button{
+    position: relative;
+    margin: 2%;
+    height: 75%;
+    width: 12.5%;
+    background: var(--Secondary-Colour);
+    color: var(--Main-Text-Colour);
+    text-align: center;
+}
+
+button:hover{
     transition: 0.1s;
     cursor: pointer;
 }

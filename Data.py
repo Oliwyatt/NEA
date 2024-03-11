@@ -197,8 +197,7 @@ class user():
                      INNER JOIN Show
                      ON Streaming.ShowID = Show.ShowID
                      WHERE UserID = ?
-                     ORDER BY Streaming.Rating DESC
-                     LIMIT 5;
+                     ORDER BY Streaming.Rating DESC;
                   """
             Values = (self.Get__UserID(),)
             cursor.execute(sql, Values)

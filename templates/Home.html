@@ -12,47 +12,52 @@
             What do you want to access today?
         </h1>
     </div>
+    
     <div class="Relaxtion-Container">
-        <div class="Relaxation-Table">
-            <table>
-                <th colspan="2">Entertainment</th>
-                <tr>
-                    <td>Show name</td>
-                    <td>Rating</td>
-                </tr>
-                {% for show in Rdata %}
-                <tr>
-                    {% for each in show %}
-                        <td>
-                            {{each}}
-                        </td>
+        <div class="Relaxation-Wrapper">
+            <div class="Relaxation-Table">
+                <table>
+                    <th colspan="2">Entertainment</th>
+                    <tr>
+                        <td>Show name</td>
+                        <td>Rating</td>
+                    </tr>
+                    {% for show in Rdata %}
+                    <tr>
+                        {% for each in show %}
+                            <td>
+                                {{each}}
+                            </td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
-                </tr>
-                {% endfor %}
-            </table>
+                </table>
+            </div>
         </div>
     </div>
     <div class="Calendar-Container">
-        <div class="Calendar-Table">
-            <table>
-                <th colspan="5">Calendar</th>
-                <tr>
-                    <td>Event name</td>
-                    <td>Start time</td>
-                    <td>End time</td>
-                    <td>Type</td>
-                    <td>Priority</td>
-                </tr>
-                {% for event in Cdata %}
-                <tr>
-                    {% for piece in event[1:] %}
-                        <td>
-                            {{piece}}
-                        </td>
+        <div class="Calendar-Wrapper">
+            <div class="Calendar-Table">
+                <table>
+                    <th colspan="5">Calendar</th>
+                    <tr>
+                        <td>Event name</td>
+                        <td>Start time</td>
+                        <td>End time</td>
+                        <td>Type</td>
+                        <td>Priority</td>
+                    </tr>
+                    {% for event in Cdata %}
+                    <tr>
+                        {% for piece in event[1:] %}
+                            <td>
+                                {{piece}}
+                            </td>
+                        {% endfor %}
+                    </tr>
                     {% endfor %}
-                </tr>
-                {% endfor %}
-            </table>
+                </table>
+            </div>
         </div>
     </div>
     <button onclick="window.location.href = '/Calendar'" class="CalendarBtn">Calendar</button>

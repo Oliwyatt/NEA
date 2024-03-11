@@ -7,34 +7,36 @@
 
 {% block body %}
 <div class="Main-Container">
-    <div class="Calendar-Container">
-        <table class="Calendar-Table">
-            <th colspan="6">Calendar</th>
-            <tr>
-                <td>Event name</td>
-                <td>Start time</td>
-                <td>End time</td>
-                <td>Type</td>
-                <td>Priority</td>
-                <td>Edit</td>
-            </tr>
-            {% for event in Cdata %}
-            <form method="POST">
+    <div class="Calendar-Wrapper">
+        <div class="Calendar-Container">
+            <table class="Calendar-Table">
+                <th colspan="6">Calendar</th>
                 <tr>
-                    {% for piece in event[1:] %}
-                        <td value="{{piece}}">
-                            <input type="text" name="Calendar-Data" value="{{piece}}" readonly hidden>
-                            {{piece}}
-                        </td>
-                    {% endfor %}
-                    <td class="OptionBtns">
-                        <button formaction="/Calendar/Update" class="OptionBtn" type="submit" value={{event[0]}} name="Update">Update</button>
-                        <button formaction="/Calendar/Delete" class="OptionBtn" type="submit" value={{event[0]}} name="Delete">Delete</button>
-                    </td>
+                    <td>Event name</td>
+                    <td>Start time</td>
+                    <td>End time</td>
+                    <td>Type</td>
+                    <td>Priority</td>
+                    <td>Edit</td>
                 </tr>
-            </form>
-            {% endfor %}
-        </table>
+                {% for event in Cdata %}
+                <form method="POST">
+                    <tr>
+                        {% for piece in event[1:] %}
+                            <td value="{{piece}}">
+                                <input type="text" name="Calendar-Data" value="{{piece}}" readonly hidden>
+                                {{piece}}
+                            </td>
+                        {% endfor %}
+                        <td>
+                            <button formaction="/Calendar/Update" class="OptionBtn" type="submit" value={{event[0]}} name="Update">Update</button>
+                            <button formaction="/Calendar/Delete" class="OptionBtn" type="submit" value={{event[0]}} name="Delete">Delete</button>
+                        </td>
+                    </tr>
+                </form>
+                {% endfor %}
+            </table>
+        </div>
     </div>
     <div class="Options-Container">
         <form action="/Calendar" method="POST" class="Options-Form" name="Options">
@@ -76,7 +78,9 @@
                 <option value="W">Work</option>
                 <option value="P">Personal</option>
             </select>
-            <input type="submit" name="Submit" id="Submit" class="Submit-Button">
+            <button formaction="/Calendar" type="submit" name="Submit" id="Submit" class="SubmitBtn">Submit</button>
         </form>
+        <button class="InsertBtn" onclick="window.location.href = '/Calendar/Insert'">Add Event</button>
+        <button class="HomeBtn" onclick="window.location.href = '/Home'">Home</button>
     </div>
 {% endblock %}

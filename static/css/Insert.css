@@ -13,10 +13,10 @@ body{
     left: 10%;
     justify-content: center;
     align-items: center;
-    background-color: #5a4192;
+    background-color: var(--Primary-Gradient);
 }
 
-.Update-Container{
+.Insert-Container{
     position: absolute;
     display: flex;
     height: 80%;
@@ -25,10 +25,10 @@ body{
     left: 10%;
     justify-content: center;
     align-items: center;
-    background-color: #570b57;
+    background-color: var(--Secondary-Colour);
 }
 
-.Update-Form{
+.Insert-Form{
     position: relative;
     display: flex;
     height: 100%;
@@ -37,7 +37,7 @@ body{
     align-items: center;
 }
 
-.Update-Container input{
+.Insert-Container input{
     position: relative;
     height: 30%;
     width: 12.5%;
@@ -45,15 +45,15 @@ body{
     font-size: larger;
     text-align: center;
     color: var(--Main-Text-Colour);
-    background-color: #6b1c6b;
+    background-color: var(--Secondary-Colour);
 }
 
-.Update-Container button{
+.Insert-Container button{
     position: relative;
     height: 30%;
     width: 12.5%;
     font-size: larger;
     text-align: center;
     color: var(--Main-Text-Colour);
-    background-color: #6b1c6b;
+    background-color: var(--Secondary-Colour);
 }

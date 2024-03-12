@@ -205,7 +205,7 @@ class user():
             return result
         
     def __GetWeek(self, Date): # Gets the week to display
-        res = Date.weekday()
+        """res = Date.weekday()
         start = date(Date.year, Date.month, Date.day - res)
         day_add = 6
         Month_end = calendar.monthrange(start.year, start.month)[1]
@@ -223,7 +223,9 @@ class user():
             end = date(New_Year, New_Month, New_Day + 1)
         else:
             end = date(S_Year, S_Month, S_Day + day_add + 1)
-        return start, end
+        return start, end"""
+        [[i for i in  range(1, Date.monthrange(Date.year, Date.j))] for j in range(1, 12)]
+
     
     def __GetMonth(self, Date): # Gets the month to display
         res = calendar.monthrange(Date.year, Date.month)[1]

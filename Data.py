@@ -1,5 +1,5 @@
 import sqlite3
-from datetime import date
+from datetime import date, timedelta
 import calendar
 
 def Initialise():
@@ -205,30 +205,16 @@ class user():
             return result
         
     def __GetWeek(self, Date): # Gets the week to display
-        res = Date.weekday()
-        start = date(Date.year, Date.month, Date.day - res)
-        day_add = 6
-        Month_end = calendar.monthrange(start.year, start.month)[1]
-        S_Day = start.day
-        S_Month = start.month
-        S_Year = start.year
-        if S_Day + day_add > Month_end:
-            New_Day = (Month_end - S_Day)
-            if S_Month == 12:
-                New_Month = 1
-                New_Year = S_Year + 1
-            else:
-                New_Month = S_Month + 1
-                New_Year = S_Year
-            end = date(New_Year, New_Month, New_Day + 1)
-        else:
-            end = date(S_Year, S_Month, S_Day + day_add + 1)
+        start = Date - timedelta(days=Date.weekday())
+        end = start + timedelta(days=6)
+        print(start, end)
         return start, end
     
     def __GetMonth(self, Date): # Gets the month to display
         res = calendar.monthrange(Date.year, Date.month)[1]
         start = date(Date.year, Date.month, 1)
         end = date(Date.year, Date.month, res)
+        print(start, end)
         return start, end
         
     def GetTodaysCalendar(self, Date):
@@ -248,6 +234,7 @@ class user():
             start, end = self.__GetWeek(Date)
         elif View == "Month":
             start, end = self.__GetMonth(Date)
+        end = date(end.year, end.month, end.day +1)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
             sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
@@ -263,6 +250,7 @@ class user():
             start, end = self.__GetWeek(Date)
         elif View == "Month":
             start, end = self.__GetMonth(Date)
+        end = date(end.year, end.month, end.day +1)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
             if Filter != "Priority":

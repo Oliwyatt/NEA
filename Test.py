@@ -32,13 +32,13 @@ conn.close()
 print("Data inserted successfully.")
 """
 
-from datetime import date
+from datetime import date, timedelta
 import calendar
 
 # Day view
 """
 
-"""
+
 
 # Week view
 today = date.today() # Server output
@@ -70,4 +70,24 @@ res = calendar.monthrange(today.year, today.month)[1]
 start = date(today.year, today.month, 1)
 end = date(today.year, today.month, res)
 print(str(start), str(end))
+"""
+"""Date = date.today()
+res = Date.weekday()
+Year = []
+for j in range(1, 12):
+    Year.append([i for i in  range(1, calendar.monthrange(Date.year, j)[1]+1)])
 
+if Date.day - res > 0:
+    StartDate = Year[Date.month-1][Date.day - res-1]
+else:
+    NewMonth = Date.month - 1
+    NewRes =  (Date.day - res)
+    StartDate = Year[NewMonth-1][calendar.monthrange(Date.year, j)[1]]
+if StartDate + 6 <= calendar.monthrange(Date.year, Date.month)[1]:
+    EndDate = Year[Date.month][StartDate + 6]"""
+today = date(2024, 3, 3)
+start = today - timedelta(days=today.weekday())
+end = start + timedelta(days=6)
+print("Today: " + str(today))
+print("Start: " + str(start))
+print("End: " + str(end))

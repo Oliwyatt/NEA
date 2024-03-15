@@ -15,7 +15,32 @@ body{
     justify-content: center;
     border-radius: 15px;
     top: 4%;
-    left: 10%;
+}
+
+.LogOut-Form{
+    display: flex;
+    position: absolute;
+    height: 18%;
+    width: 15%;
+    background: var(--Secondary-BG-Colour);
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    top: 7%;
+    left: 82.5%;
+}
+
+.LogOutBtn{
+    width: 100%;
+    height: 100%;
+    color: var(--Main-Text-Colour);
+    background: var(--Secondary-BG-Colour);
+    border-radius: 15px;
+}
+
+.LogOutBtn:hover{
+    transition: 0.1;
+    cursor: pointer;
 }
 
 .Relaxation-Wrapper{

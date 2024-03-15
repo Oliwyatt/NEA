@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, session
+from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import calendar
@@ -48,6 +48,15 @@ def Home():
     Relaxation = Current_User.GetAllRData()
     Calendar = Current_User.GetTodaysCalendar(Date)
     return render_template("Home.html", Name=name, Rdata=Relaxation, Cdata=Calendar)
+
+@app.route("/LogOut", methods=["POST", "GET"])
+def LogOut():
+    try:
+        Current_User = Data.user()
+        print(Current_User.GetFName())
+        return redirect("/")
+    except Exception as err:
+        return render_template("Error.html", Error=err)
 
 @app.route("/Calendar", methods=["POST", "GET"])
 def Calendar():

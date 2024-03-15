@@ -299,3 +299,118 @@ class user():
             Value = (EventID,)
             cursor.execute(sql, Value)
             db.commit()
+
+
+class Tables(User):
+    def __init__(self):
+        pass
+
+    def GetAllRData(self):
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """SELECT Show.ShowName, Streaming.Rating FROM Streaming
+                     INNER JOIN Show
+                     ON Streaming.ShowID = Show.ShowID
+                     WHERE UserID = ?
+                     ORDER BY Streaming.Rating DESC;
+                  """
+            Values = (self.Get__UserID(),)
+            cursor.execute(sql, Values)
+            result = cursor.fetchall()
+            return result
+        
+    def __GetWeek(self, Date): # Gets the week to display
+        start = Date - timedelta(days=Date.weekday())
+        end = start + timedelta(days=6)
+        print(start, end)
+        return start, end
+    
+    def __GetMonth(self, Date): # Gets the month to display
+        res = calendar.monthrange(Date.year, Date.month)[1]
+        start = date(Date.year, Date.month, 1)
+        end = date(Date.year, Date.month, res)
+        print(start, end)
+        return start, end
+        
+    def GetTodaysCalendar(self, Date):
+        Date = "%"+Date+"%"
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
+                     WHERE UserID = ? AND Start LIKE ?;
+                  """
+            Values = (self.Get__UserID(), Date)
+            cursor.execute(sql, Values)
+            result = cursor.fetchall()
+            return result
+    
+    def GetCalendar(self, Date, View):
+        if View == "Week":
+            start, end = self.__GetWeek(Date)
+        elif View == "Month":
+            start, end = self.__GetMonth(Date)
+        end = date(end.year, end.month, end.day +1)
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
+                     WHERE UserID = ? AND Start BETWEEN ? AND ?;
+                  """
+            Values = (self.Get__UserID(), str(start), str(end))
+            cursor.execute(sql, Values)
+            result = cursor.fetchall()
+            return result
+        
+    def GetFilteredCalendar(self, Date, Filter, View):
+        if View == "Week":
+            start, end = self.__GetWeek(Date)
+        elif View == "Month":
+            start, end = self.__GetMonth(Date)
+        end = date(end.year, end.month, end.day +1)
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            if Filter != "Priority":
+                sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
+                        WHERE UserID = ? AND Type = ? AND Start BETWEEN ? AND ?;
+                    """
+                Values = (self.Get__UserID(),Filter ,str(start), str(end))
+            else:
+                sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
+                        WHERE UserID = ? AND Start BETWEEN ? AND ?
+                        ORDER BY Priority;
+                    """
+                Values = (self.Get__UserID(), str(start), str(end))
+            
+            cursor.execute(sql, Values)
+            result = cursor.fetchall()
+            return result
+        
+    def InsertCalendar(self, Values):
+        Values.insert(0, self.Get__UserID())
+        Values = tuple(Values)
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """INSERT INTO Event(UserID, EventName, Start, End, Type, Priority)
+                     VALUES(?, ?, ?, ?, ?, ?);
+                  """
+            cursor.execute(sql, Values)
+            db.commit()
+    
+    def UpdateCalendar(self, Values):
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """UPDATE Event
+                     SET EventName = ?, Start = ?, End = ?, Type = ?, Priority = ?
+                     WHERE EventID = ?;
+                  """
+            cursor.execute(sql, Values)
+            db.commit()
+
+    def DeleteCalendar(self, EventID):
+        with sqlite3.connect("Organiser.db") as db:
+            cursor = db.cursor()
+            sql = """Delete From Event
+                     Where EventID = ?;
+                  """
+            Value = (EventID,)
+            cursor.execute(sql, Value)
+            db.commit()

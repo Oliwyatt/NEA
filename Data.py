@@ -64,7 +64,7 @@ class user():
         self.LName = ""
         self._Email = "" # Is protected no need to use in website
         self._Password = ""
-        self.__UserID = 0 # Is private, would not be good if info was found
+        self._UserID = 0 # Is private, would not be good if info was found
 
 # Setters and Getters
         
@@ -80,8 +80,8 @@ class user():
     def Get_Password(self):
         return self._Password
     
-    def Get__UserID(self):
-        return self.__UserID
+    def Get_UserID(self):
+        return self._UserID
     
     def SetFName(self, FName):
         self.FName = FName
@@ -95,12 +95,12 @@ class user():
     def Set_Password(self, Password):
         self._Password = Password
 
-    def Set__UserID(self, UserID):
-        self.__UserID = UserID
+    def Set_UserID(self, UserID):
+        self._UserID = UserID
     
 # Find values from SQL database
     
-    def Find__UserID(self, Email):
+    def Find_UserID(self, Email):
         Values = (Email,)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
@@ -180,15 +180,18 @@ class user():
     def login(self, **kwargs):
         self.Set_Email(kwargs["Email"])
         self.Set_Password(kwargs["Password"])
-        self.Set__UserID(self.Find__UserID(self.Get_Email())) # Setting user id using email because email is unique
-        if self.Check_Password(self.Get_Password(), self.Get__UserID()):
-            self.SetFName(self.FindFName(self.Get__UserID())) # Retrieving relevent info from database
-            self.SetLName(self.FindLName(self.Get__UserID()))
+        self.Set_UserID(self.Find_UserID(self.Get_Email())) # Setting user id using email because email is unique
+        if self.Check_Password(self.Get_Password(), self.Get_UserID()):
+            self.SetFName(self.FindFName(self.Get_UserID())) # Retrieving relevent info from database
+            self.SetLName(self.FindLName(self.Get_UserID()))
             return True # Login was successfull
         else:
             return False # Login Failed wrong email or password
-    
-    #Retrieving data from tables
+
+
+class Tables():
+    def __init__(self, User):
+        self.User = User
 
     def GetAllRData(self):
         with sqlite3.connect("Organiser.db") as db:
@@ -199,22 +202,20 @@ class user():
                      WHERE UserID = ?
                      ORDER BY Streaming.Rating DESC;
                   """
-            Values = (self.Get__UserID(),)
+            Values = (self.User.Get_UserID(),)
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
         
     def __GetWeek(self, Date): # Gets the week to display
         start = Date - timedelta(days=Date.weekday())
-        end = start + timedelta(days=6)
-        print(start, end)
+        end = start + timedelta(days=7)
         return start, end
     
     def __GetMonth(self, Date): # Gets the month to display
         res = calendar.monthrange(Date.year, Date.month)[1]
         start = date(Date.year, Date.month, 1)
         end = date(Date.year, Date.month, res)
-        print(start, end)
         return start, end
         
     def GetTodaysCalendar(self, Date):
@@ -224,7 +225,7 @@ class user():
             sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                      WHERE UserID = ? AND Start LIKE ?;
                   """
-            Values = (self.Get__UserID(), Date)
+            Values = (self.User.Get_UserID(), Date)
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
@@ -234,13 +235,12 @@ class user():
             start, end = self.__GetWeek(Date)
         elif View == "Month":
             start, end = self.__GetMonth(Date)
-        end = date(end.year, end.month, end.day +1)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
             sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                      WHERE UserID = ? AND Start BETWEEN ? AND ?;
                   """
-            Values = (self.Get__UserID(), str(start), str(end))
+            Values = (self.User.Get_UserID(), str(start), str(end))
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
@@ -250,142 +250,26 @@ class user():
             start, end = self.__GetWeek(Date)
         elif View == "Month":
             start, end = self.__GetMonth(Date)
-        end = date(end.year, end.month, end.day +1)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
             if Filter != "Priority":
                 sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                         WHERE UserID = ? AND Type = ? AND Start BETWEEN ? AND ?;
                     """
-                Values = (self.Get__UserID(),Filter ,str(start), str(end))
+                Values = (self.User.Get_UserID(),Filter ,str(start), str(end))
             else:
                 sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                         WHERE UserID = ? AND Start BETWEEN ? AND ?
                         ORDER BY Priority;
                     """
-                Values = (self.Get__UserID(), str(start), str(end))
+                Values = (self.User.Get_UserID(), str(start), str(end))
             
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
         
     def InsertCalendar(self, Values):
-        Values.insert(0, self.Get__UserID())
-        Values = tuple(Values)
-        with sqlite3.connect("Organiser.db") as db:
-            cursor = db.cursor()
-            sql = """INSERT INTO Event(UserID, EventName, Start, End, Type, Priority)
-                     VALUES(?, ?, ?, ?, ?, ?);
-                  """
-            cursor.execute(sql, Values)
-            db.commit()
-    
-    def UpdateCalendar(self, Values):
-        with sqlite3.connect("Organiser.db") as db:
-            cursor = db.cursor()
-            sql = """UPDATE Event
-                     SET EventName = ?, Start = ?, End = ?, Type = ?, Priority = ?
-                     WHERE EventID = ?;
-                  """
-            cursor.execute(sql, Values)
-            db.commit()
-
-    def DeleteCalendar(self, EventID):
-        with sqlite3.connect("Organiser.db") as db:
-            cursor = db.cursor()
-            sql = """Delete From Event
-                     Where EventID = ?;
-                  """
-            Value = (EventID,)
-            cursor.execute(sql, Value)
-            db.commit()
-
-
-class Tables(User):
-    def __init__(self):
-        pass
-
-    def GetAllRData(self):
-        with sqlite3.connect("Organiser.db") as db:
-            cursor = db.cursor()
-            sql = """SELECT Show.ShowName, Streaming.Rating FROM Streaming
-                     INNER JOIN Show
-                     ON Streaming.ShowID = Show.ShowID
-                     WHERE UserID = ?
-                     ORDER BY Streaming.Rating DESC;
-                  """
-            Values = (self.Get__UserID(),)
-            cursor.execute(sql, Values)
-            result = cursor.fetchall()
-            return result
-        
-    def __GetWeek(self, Date): # Gets the week to display
-        start = Date - timedelta(days=Date.weekday())
-        end = start + timedelta(days=6)
-        print(start, end)
-        return start, end
-    
-    def __GetMonth(self, Date): # Gets the month to display
-        res = calendar.monthrange(Date.year, Date.month)[1]
-        start = date(Date.year, Date.month, 1)
-        end = date(Date.year, Date.month, res)
-        print(start, end)
-        return start, end
-        
-    def GetTodaysCalendar(self, Date):
-        Date = "%"+Date+"%"
-        with sqlite3.connect("Organiser.db") as db:
-            cursor = db.cursor()
-            sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
-                     WHERE UserID = ? AND Start LIKE ?;
-                  """
-            Values = (self.Get__UserID(), Date)
-            cursor.execute(sql, Values)
-            result = cursor.fetchall()
-            return result
-    
-    def GetCalendar(self, Date, View):
-        if View == "Week":
-            start, end = self.__GetWeek(Date)
-        elif View == "Month":
-            start, end = self.__GetMonth(Date)
-        end = date(end.year, end.month, end.day +1)
-        with sqlite3.connect("Organiser.db") as db:
-            cursor = db.cursor()
-            sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
-                     WHERE UserID = ? AND Start BETWEEN ? AND ?;
-                  """
-            Values = (self.Get__UserID(), str(start), str(end))
-            cursor.execute(sql, Values)
-            result = cursor.fetchall()
-            return result
-        
-    def GetFilteredCalendar(self, Date, Filter, View):
-        if View == "Week":
-            start, end = self.__GetWeek(Date)
-        elif View == "Month":
-            start, end = self.__GetMonth(Date)
-        end = date(end.year, end.month, end.day +1)
-        with sqlite3.connect("Organiser.db") as db:
-            cursor = db.cursor()
-            if Filter != "Priority":
-                sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
-                        WHERE UserID = ? AND Type = ? AND Start BETWEEN ? AND ?;
-                    """
-                Values = (self.Get__UserID(),Filter ,str(start), str(end))
-            else:
-                sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
-                        WHERE UserID = ? AND Start BETWEEN ? AND ?
-                        ORDER BY Priority;
-                    """
-                Values = (self.Get__UserID(), str(start), str(end))
-            
-            cursor.execute(sql, Values)
-            result = cursor.fetchall()
-            return result
-        
-    def InsertCalendar(self, Values):
-        Values.insert(0, self.Get__UserID())
+        Values.insert(0, self.User.Get_UserID())
         Values = tuple(Values)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()

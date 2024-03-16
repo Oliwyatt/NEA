@@ -6,6 +6,8 @@ import Data
 
 global Current_User
 Current_User = Data.user()
+global User_Data
+User_Data = Data.Tables(Current_User)
 
 app = Flask(__name__)
 Data.Initialise()
@@ -45,8 +47,8 @@ def SignUp():
 def Home():
     name = Current_User.GetFName()
     Date = str(date.today())
-    Relaxation = Current_User.GetAllRData()
-    Calendar = Current_User.GetTodaysCalendar(Date)
+    Relaxation = User_Data.GetAllRData()
+    Calendar = User_Data.GetTodaysCalendar(Date)
     return render_template("Home.html", Name=name, Rdata=Relaxation, Cdata=Calendar)
 
 @app.route("/LogOut", methods=["POST", "GET"])
@@ -62,14 +64,14 @@ def LogOut():
 def Calendar():
     today = date.today()
     Monthlen = calendar.monthrange(today.year, today.month)[1]
-    Calendar = Current_User.GetTodaysCalendar(str(today))
+    Calendar = User_Data.GetTodaysCalendar(str(today))
     if request.method == "POST":
         try:
             Date = date(int(request.form["Year"]), int(request.form["Month"]), int(request.form["Day"]))
             if request.form["Filter"] == "None":
-                Calendar = Current_User.GetCalendar(Date, request.form["View"])
+                Calendar = User_Data.GetCalendar(Date, request.form["View"])
             elif request.form["Filter"] != "None":
-                Calendar = Current_User.GetFilteredCalendar(Date, request.form["Filter"], request.form["View"])
+                Calendar = User_Data.GetFilteredCalendar(Date, request.form["Filter"], request.form["View"])
             return render_template("Calendar.html", Year=today.year, Month=today.month, Day=today.day, Monthlen=Monthlen, Cdata=Calendar)
         except Exception as err:
             return render_template("Error.html", Error=err)
@@ -85,7 +87,7 @@ def Update():
             return render_template("Error.html", Error=err)
     elif request.method == "POST" and request.form.get("Update", False) == False:
         try:
-            Current_User.UpdateCalendar((request.form["Event-Name"], request.form["Start-Time"], request.form["End-Time"], request.form["Type"], request.form["Priority"], request.form["Submit"]))
+            User_Data.UpdateCalendar((request.form["Event-Name"], request.form["Start-Time"], request.form["End-Time"], request.form["Type"], request.form["Priority"], request.form["Submit"]))
             return redirect("/Calendar")
         except Exception as err:
             return render_template("Error.html", Error=err)
@@ -96,7 +98,7 @@ def Update():
 def Delete():
     if request.method == "POST":
         try:
-            Current_User.DeleteCalendar(request.form["Delete"])
+            User_Data.DeleteCalendar(request.form["Delete"])
             return redirect("/Calendar")
         except Exception as err:
             return render_template("Error.html", Error=err)
@@ -107,7 +109,7 @@ def Delete():
 def Insert():
     if request.method == "POST":
         try:
-            Current_User.InsertCalendar([request.form["Event-Name"], request.form["Start-Time"], request.form["End-Time"], request.form["Type"], request.form["Priority"]])
+            User_Data.InsertCalendar([request.form["Event-Name"], request.form["Start-Time"], request.form["End-Time"], request.form["Type"], request.form["Priority"]])
             return redirect("/Calendar")
         except Exception as err:
             return render_template("Error.html", Error=err)

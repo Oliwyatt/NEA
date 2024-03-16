@@ -191,7 +191,7 @@ class user():
 
 class Tables():
     def __init__(self, User):
-        self.User = User
+        self.__User = User
 
     def GetAllRData(self):
         with sqlite3.connect("Organiser.db") as db:
@@ -202,7 +202,7 @@ class Tables():
                      WHERE UserID = ?
                      ORDER BY Streaming.Rating DESC;
                   """
-            Values = (self.User.Get_UserID(),)
+            Values = (self.__User.Get_UserID(),)
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
@@ -225,7 +225,7 @@ class Tables():
             sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                      WHERE UserID = ? AND Start LIKE ?;
                   """
-            Values = (self.User.Get_UserID(), Date)
+            Values = (self.__User.Get_UserID(), Date)
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
@@ -240,7 +240,7 @@ class Tables():
             sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                      WHERE UserID = ? AND Start BETWEEN ? AND ?;
                   """
-            Values = (self.User.Get_UserID(), str(start), str(end))
+            Values = (self.__User.Get_UserID(), str(start), str(end))
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
@@ -256,20 +256,20 @@ class Tables():
                 sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                         WHERE UserID = ? AND Type = ? AND Start BETWEEN ? AND ?;
                     """
-                Values = (self.User.Get_UserID(),Filter ,str(start), str(end))
+                Values = (self.__User.Get_UserID(),Filter ,str(start), str(end))
             else:
                 sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
                         WHERE UserID = ? AND Start BETWEEN ? AND ?
                         ORDER BY Priority;
                     """
-                Values = (self.User.Get_UserID(), str(start), str(end))
+                Values = (self.__User.Get_UserID(), str(start), str(end))
             
             cursor.execute(sql, Values)
             result = cursor.fetchall()
             return result
         
     def InsertCalendar(self, Values):
-        Values.insert(0, self.User.Get_UserID())
+        Values.insert(0, self.__User.Get_UserID())
         Values = tuple(Values)
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()

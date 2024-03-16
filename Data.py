@@ -64,7 +64,7 @@ class user():
         self.LName = ""
         self._Email = "" # Is protected no need to use in website
         self._Password = ""
-        self._UserID = 0 # Is private, would not be good if info was found
+        self._UserID = 0 # Is protected, would not be good if info was found only needed in tables
 
 # Setters and Getters
         

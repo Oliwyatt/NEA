@@ -13,7 +13,6 @@ def Initialise():
                  LastName varchar(20),
                  Email text UNIQUE NOT NULL,
                  Password text NOT NULL,
-                 DeleteCal char(1) NOT NULL,
                  Primary key(UserID));
               """
         cursor.execute(sql)

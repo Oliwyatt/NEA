@@ -11,8 +11,8 @@ def Initialise():
                  UserID integer,
                  FirstName varchar(20),
                  LastName varchar(20),
-                 Email text UNIQUE,
-                 Password text,
+                 Email text UNIQUE NOT NULL,
+                 Password text NOT NULL,
                  DeleteCal char(1) NOT NULL,
                  Primary key(UserID));
               """
@@ -22,8 +22,8 @@ def Initialise():
                  EventID integer,
                  UserID integer,
                  EventName text NOT NULL,
-                 Start DateTime,
-                 End DateTime,
+                 Start DateTime NOT NULL,
+                 End DateTime NOT NULL,
                  Type char(1) NOT NULL,
                  Priority integer NOT NULL,
                  Primary key(EventID),

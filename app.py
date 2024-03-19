@@ -14,7 +14,6 @@ def Create_User():
 
 @app.route("/", methods=["POST", "GET"])
 def index():
-    
     try:
         if request.method == "POST":
             if Current_User.login(Email=request.form["Email"], Password=request.form["Password"]):

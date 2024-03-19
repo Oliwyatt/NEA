@@ -1,19 +1,16 @@
 from flask import Flask, render_template, url_for, request, redirect
-from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 import calendar
 import Data
 
-global Current_User
-Current_User = Data.user()
-global User_Data
-User_Data = Data.Tables(Current_User)
 
 app = Flask(__name__)
-Data.Initialise()
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///Organiser.db"
-db = SQLAlchemy(app)
 
+def Create_User():
+    global Current_User
+    Current_User = Data.user()
+    global User_Data
+    User_Data = Data.Tables(Current_User)
 
 @app.route("/", methods=["POST", "GET"])
 def index():
@@ -55,8 +52,7 @@ def Home():
 @app.route("/LogOut", methods=["POST", "GET"])
 def LogOut():
     try:
-        Current_User = Data.user()
-        print(Current_User.GetFName())
+        Create_User()
         return redirect("/")
     except Exception as err:
         return render_template("Error.html", Error=err)
@@ -123,4 +119,6 @@ def Error(Error):
 
 
 if __name__ == "__main__":
+    Data.Initialise()
+    Create_User()
     app.run(debug=True)

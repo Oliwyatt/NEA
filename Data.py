@@ -149,12 +149,12 @@ class user():
 # Sign up and login
             
     def CreateAccount(self, FName, LName, Email, Password):
-        Values = (FName, LName, Email, Password, "N")
+        Values = (FName, LName, Email, Password)
         try:
             with sqlite3.connect("Organiser.db") as db:
                 cursor = db.cursor()
-                sql = """INSERT INTO User (FirstName, LastName, Email, Password, DeleteCal)
-                         VALUES (?, ?, ?, ?, ?);
+                sql = """INSERT INTO User (FirstName, LastName, Email, Password)
+                         VALUES (?, ?, ?, ?);
                     """
                 cursor.execute(sql, Values)
                 db.commit()

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect
 from datetime import date
-import calendar
+from calendar import monthrange
 import Data
 
 
@@ -59,7 +59,7 @@ def LogOut():
 @app.route("/Calendar", methods=["POST", "GET"])
 def Calendar():
     today = date.today()
-    Monthlen = calendar.monthrange(today.year, today.month)[1]
+    Monthlen = monthrange(today.year, today.month)[1]
     Calendar = User_Data.GetTodaysCalendar(str(today))
     if request.method == "POST":
         try:

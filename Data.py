@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import date, timedelta
-import calendar
+from calendar import monthrange
 
 def Initialise():
     # Creating tables if they dont exist
@@ -212,7 +212,7 @@ class Tables():
         return start, end
     
     def __GetMonth(self, Date): # Gets the month to display
-        res = calendar.monthrange(Date.year, Date.month)[1]
+        res = monthrange(Date.year, Date.month)[1]
         start = date(Date.year, Date.month, 1)
         end = date(Date.year, Date.month, res)
         return start, end

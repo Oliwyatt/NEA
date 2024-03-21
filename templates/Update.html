@@ -12,13 +12,13 @@
     </div>
     <div class="Update-Container">
         <form action="/Calendar/Update" method="POST" class="Update-Form" name="Update-Form">
-            <input type="text" name="Event-Name" id="Event-Name" value="{{EventData[0]}}">
+            <input type="text" name="Event-Name" id="Event-Name" value="{{EventData[0]}}" required>
             <label for="Start-Time">Start Time:</label>
-            <input type="datetime-local" name="Start-Time" id="Start-Time" value="{{EventData[1]}}">
+            <input type="datetime-local" name="Start-Time" id="Start-Time" value="{{EventData[1]}}" required>
             <label for="End-Time">End Time:</label>
-            <input type="datetime-local" name="End-Time" id="End-Time" value="{{EventData[2]}}">
-            <input type="text" name="Type" id="Type" value="{{EventData[3]}}">
-            <input type="number" name="Priority" id="Priority" value="{{EventData[4]}}">
+            <input type="datetime-local" name="End-Time" id="End-Time" value="{{EventData[2]}}" required>
+            <input type="text" name="Type" id="Type" value="{{EventData[3]}}" required>
+            <input type="number" name="Priority" id="Priority" value="{{EventData[4]}}" required>
             <button type="submit" name="Submit" value={{EventID}}>Submit</button>
         </form>
     </div>

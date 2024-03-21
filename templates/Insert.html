@@ -12,13 +12,13 @@
     </div>
     <div class="Insert-Container">
         <form action="/Calendar/Insert" method="POST" class="Insert-Form">
-            <input type="text" name="Event-Name" id="Event-Name" placeholder="Event Name">
+            <input type="text" name="Event-Name" id="Event-Name" placeholder="Event Name" required>
             <label for="Start-Time">Start Time:</label>
-            <input type="datetime-local" name="Start-Time" id="Start-Time">
+            <input type="datetime-local" name="Start-Time" id="Start-Time" required>
             <label for="End-Time">End Time:</label>
-            <input type="datetime-local" name="End-Time" id="End-Time">
-            <input type="text" name="Type" id="Type" placeholder="Types: W or P">
-            <input type="number" name="Priority" id="Priority" placeholder="Priority: 1-10">
+            <input type="datetime-local" name="End-Time" id="End-Time" required>
+            <input type="text" name="Type" id="Type" placeholder="Types: W or P" required>
+            <input type="number" name="Priority" id="Priority" placeholder="Priority: 1-10" required>
             <button type="submit" name="Submit">Submit</button>
         </form>
     </div>

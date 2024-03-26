@@ -8,42 +8,42 @@ def Initialise():
         cursor = db.cursor()
         # Creating User table
         sql = """CREATE TABLE IF NOT EXISTS User(
-                 UserID integer,
-                 FirstName varchar(20),
-                 LastName varchar(20),
-                 Email text UNIQUE NOT NULL,
-                 Password text NOT NULL,
-                 Primary key(UserID));
+                 UserID INT,
+                 FirstName VARCHAR(20),
+                 LastName VARCHAR(20),
+                 Email TEXT UNIQUE NOT NULL,
+                 Password TEXT NOT NULL,
+                 PRIMARY KEY(UserID));
               """
         cursor.execute(sql)
         # Creating Event table
         sql = """CREATE TABLE IF NOT EXISTS Event(
-                 EventID integer,
-                 UserID integer,
-                 EventName text NOT NULL,
-                 Start DateTime NOT NULL,
-                 End DateTime NOT NULL,
-                 Type char(1) NOT NULL,
-                 Priority integer NOT NULL,
-                 Primary key(EventID),
-                 Foreign key(UserID) References User);
+                 EventID INT,
+                 UserID INT,
+                 EventName TEXT NOT NULL,
+                 Start DATETIME NOT NULL,
+                 End DATETIME NOT NULL,
+                 Type CHAR(1) NOT NULL,
+                 Priority INT NOT NULL,
+                 PRIMARY KEY(EventID),
+                 FOREIGN KEY(UserID) REFERENCES User);
                """
         cursor.execute(sql)
         # Creating Show table
         sql = """CREATE TABLE IF NOT EXISTS Show(
-                 ShowID integer,
-                 ShowName text NOT NULL,
-                 Primary key(ShowID));
+                 ShowID INT,
+                 ShowName TEXT NOT NULL,
+                 PRIMARY KEY(ShowID));
               """
         cursor.execute(sql)
         # Creating Streaming table
         sql = """CREATE TABLE IF NOT EXISTS Streaming(
-                 UserID integer,
-                 ShowID integer,
-                 Rating integer,
-                 Foreign key(UserID) References User,
-                 Foreign key(ShowID) References Streaming,
-                 Primary key(UserID, ShowID));
+                 UserID INT,
+                 ShowID INT,
+                 Rating INT,
+                 FOREIGN KEY(UserID) REFERENCES User,
+                 FOREIGN KEY(ShowID) REFERENCES Streaming,
+                 PRIMARY KEY(UserID, ShowID));
               """
         cursor.execute(sql)
 
@@ -222,7 +222,8 @@ class Tables():
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
             sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
-                     WHERE UserID = ? AND Start LIKE ?;
+                     WHERE UserID = ? AND Start LIKE ?
+                     ORDER BY Start;
                   """
             Values = (self.__User.Get_UserID(), Date)
             cursor.execute(sql, Values)
@@ -237,7 +238,8 @@ class Tables():
         with sqlite3.connect("Organiser.db") as db:
             cursor = db.cursor()
             sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
-                     WHERE UserID = ? AND Start BETWEEN ? AND ?;
+                     WHERE UserID = ? AND Start BETWEEN ? AND ?
+                     ORDER BY START;
                   """
             Values = (self.__User.Get_UserID(), str(start), str(end))
             cursor.execute(sql, Values)
@@ -253,7 +255,8 @@ class Tables():
             cursor = db.cursor()
             if Filter != "Priority":
                 sql = """SELECT EventID, EventName, Start, End, Type, Priority FROM Event
-                        WHERE UserID = ? AND Type = ? AND Start BETWEEN ? AND ?;
+                        WHERE UserID = ? AND Type = ? AND Start BETWEEN ? AND ?
+                        ORDER BY START;
                     """
                 Values = (self.__User.Get_UserID(),Filter ,str(start), str(end))
             else:

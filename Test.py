@@ -94,9 +94,10 @@ print("Start: " + str(start))
 print("End: " + str(end))
 """
 
-today = date.today()
-print(type(today))
-print(today.year, today.month, today.day)
-print(str(today))
-tommorow = date(today.year, today.month, today.day + 1)
-print(str(tommorow))
+def GetWeek(Date): # Gets the week to display
+        start = Date - timedelta(days=Date.weekday())
+        end = start + timedelta(days=7)
+        return start, end
+
+start, end = GetWeek(date.today())
+print(str(start), str(end))

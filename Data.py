@@ -179,13 +179,16 @@ class user():
     def login(self, **kwargs):
         self.Set_Email(kwargs["Email"])
         self.Set_Password(kwargs["Password"])
-        self.Set_UserID(self.Find_UserID(self.Get_Email())) # Setting user id using email because email is unique
+        try:
+            self.Set_UserID(self.Find_UserID(self.Get_Email())) # Setting user id using email because email is unique
+        except:
+            return False # Login Failed wrong email
         if self.Check_Password(self.Get_Password(), self.Get_UserID()):
             self.SetFName(self.FindFName(self.Get_UserID())) # Retrieving relevent info from database
             self.SetLName(self.FindLName(self.Get_UserID()))
             return True # Login was successfull
         else:
-            return False # Login Failed wrong email or password
+            return False # Login Failed wrong password
 
 
 class Tables():

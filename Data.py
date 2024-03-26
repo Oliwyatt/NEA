@@ -296,8 +296,9 @@ class Tables():
             cursor = db.cursor()
             sql = """Delete From Event
                      Where EventID = ?;
-                     REINDEX Event;
                   """
             Value = (EventID,)
             cursor.execute(sql, Value)
+            sql = """REINDEX Event;"""
+            cursor.execute(sql)
             db.commit()

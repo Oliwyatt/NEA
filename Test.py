@@ -85,9 +85,18 @@ else:
     StartDate = Year[NewMonth-1][calendar.monthrange(Date.year, j)[1]]
 if StartDate + 6 <= calendar.monthrange(Date.year, Date.month)[1]:
     EndDate = Year[Date.month][StartDate + 6]"""
+"""
 today = date(2024, 3, 3)
 start = today - timedelta(days=today.weekday())
 end = start + timedelta(days=6)
 print("Today: " + str(today))
 print("Start: " + str(start))
 print("End: " + str(end))
+"""
+
+today = date.today()
+print(type(today))
+print(today.year, today.month, today.day)
+print(str(today))
+tommorow = date(today.year, today.month, today.day + 1)
+print(str(tommorow))

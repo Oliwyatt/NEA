@@ -8,7 +8,7 @@ def Initialise():
         cursor = db.cursor()
         # Creating User table
         sql = """CREATE TABLE IF NOT EXISTS User(
-                 UserID INT,
+                 UserID INT AUTO_INCREMENT,
                  FirstName VARCHAR(20),
                  LastName VARCHAR(20),
                  Email TEXT UNIQUE NOT NULL,
@@ -18,7 +18,7 @@ def Initialise():
         cursor.execute(sql)
         # Creating Event table
         sql = """CREATE TABLE IF NOT EXISTS Event(
-                 EventID INT,
+                 EventID INT AUTO_INCREMENT,
                  UserID INT,
                  EventName TEXT NOT NULL,
                  Start DATETIME NOT NULL,
@@ -31,7 +31,7 @@ def Initialise():
         cursor.execute(sql)
         # Creating Show table
         sql = """CREATE TABLE IF NOT EXISTS Show(
-                 ShowID INT,
+                 ShowID INT AUTO_INCREMENT,
                  ShowName TEXT NOT NULL,
                  PRIMARY KEY(ShowID));
               """

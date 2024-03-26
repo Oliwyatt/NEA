@@ -23,7 +23,7 @@ def Initialise():
                  EventName TEXT NOT NULL,
                  Start DATETIME NOT NULL,
                  End DATETIME NOT NULL,
-                 Type CHAR(1) NOT NULL,
+                 Type CHAR(1),
                  Priority INT NOT NULL,
                  PRIMARY KEY(EventID),
                  FOREIGN KEY(UserID) REFERENCES User);

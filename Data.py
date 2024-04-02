@@ -8,7 +8,7 @@ def Initialise():
         cursor = db.cursor()
         # Creating User table
         sql = """CREATE TABLE IF NOT EXISTS User(
-                 UserID INT AUTOINCREMENT,
+                 UserID INT AUTO_INCREMENT,
                  FirstName VARCHAR(20),
                  LastName VARCHAR(20),
                  Email TEXT UNIQUE NOT NULL,
@@ -18,7 +18,7 @@ def Initialise():
         cursor.execute(sql)
         # Creating Event table
         sql = """CREATE TABLE IF NOT EXISTS Event(
-                 EventID INT AUTOINCREMENT,
+                 EventID INT AUTO_INCREMENT,
                  UserID INT,
                  EventName TEXT NOT NULL,
                  Start DATETIME NOT NULL,
@@ -31,7 +31,7 @@ def Initialise():
         cursor.execute(sql)
         # Creating Show table
         sql = """CREATE TABLE IF NOT EXISTS Show(
-                 ShowID INT AUTOINCREMENT,
+                 ShowID INT AUTO_INCREMENT,
                  ShowName TEXT NOT NULL,
                  PRIMARY KEY(ShowID));
               """
@@ -59,9 +59,9 @@ def view():
 
 class user():
     def __init__(self):
-        self.FName = "" # Is public to use in website
+        self.FName = "" # Is public to use in webapp
         self.LName = ""
-        self._Email = "" # Is protected no need to use in website
+        self._Email = "" # Is protected no need to use in webapp
         self._Password = ""
         self._UserID = 0 # Is protected, would not be good if info was found only needed in tables
 
